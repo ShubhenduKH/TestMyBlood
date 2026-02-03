@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Test My Blood</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h4><i class="bi bi-droplet-fill"></i> Test<span>MyBlood</span></h4>
+                <small class="text-white-50">Admin Panel</small>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#" onclick="showTab('dashboard')" class="active" id="dashboardLink"><i class="bi bi-grid-1x2"></i> Dashboard</a></li>
+                <li><a href="#" onclick="showTab('bookings')" id="bookingsLink"><i class="bi bi-calendar-check"></i> Bookings</a></li>
+                <li><a href="#" onclick="showTab('tests')" id="testsLink"><i class="bi bi-clipboard2-pulse"></i> Manage Tests</a></li>
+                <li><a href="#" onclick="showTab('labs')" id="labsLink"><i class="bi bi-building"></i> Manage Labs</a></li>
+                <li><a href="#" onclick="showTab('doctors')" id="doctorsLink"><i class="bi bi-person-badge"></i> Manage Doctors</a></li>
+                <li><a href="#" onclick="showTab('collectors')" id="collectorsLink"><i class="bi bi-people"></i> Collectors</a></li>
+                <li><a href="#" onclick="showTab('reports')" id="reportsLink"><i class="bi bi-file-earmark-medical"></i> Upload Reports</a></li>
+                <li><a href="#" onclick="showTab('users')" id="usersLink"><i class="bi bi-person-lines-fill"></i> Users</a></li>
+                <li><a href="#" onclick="TestMyBlood.logoutUser()"><i class="bi bi-box-arrow-left"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navbar -->
+            <div class="top-navbar">
+                <button class="btn btn-link d-lg-none" onclick="toggleSidebar()">
+                    <i class="bi bi-list fs-4"></i>
+                </button>
+                <h5 class="mb-0" id="pageTitle">Dashboard</h5>
+                <div class="user-menu">
+                    <span class="notification">
+                        <i class="bi bi-bell"></i>
+                        <span class="badge bg-danger" id="notificationCount">0</span>
+                    </span>
+                    <div class="user-info">
+                        <img src="https://randomuser.me/api/portraits/men/10.jpg" alt="Admin">
+                        <span>Admin</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Dashboard Tab -->
+                <div id="dashboardTab">
+                    <!-- Stats Cards -->
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6 col-lg-3">
+                            <div class="stat-card">
+                                <div class="stat-icon bg-primary">
+                                    <i class="bi bi-calendar-check"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="totalBookings">0</h3>
+                                    <p>Total Bookings</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="stat-card">
+                                <div class="stat-icon bg-warning">
+                                    <i class="bi bi-clock"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="pendingBookings">0</h3>
+                                    <p>Pending</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="stat-card">
+                                <div class="stat-icon bg-success">
+                                    <i class="bi bi-check-circle"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="completedBookings">0</h3>
+                                    <p>Completed</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="stat-card">
+                                <div class="stat-icon bg-info">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="totalUsers">0</h3>
+                                    <p>Total Users</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Bookings & Quick Actions -->
+                    <div class="row g-4">
+                        <div class="col-lg-8">
+                            <div class="data-table">
+                                <div class="table-header">
+                                    <h5>Recent Bookings</h5>
+                                    <a href="#" onclick="showTab('bookings')" class="btn btn-sm btn-outline-primary">View All</a>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Patient</th>
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="recentBookingsTable">
+                                            <tr><td colspan="5" class="text-center py-3 text-muted">No bookings</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-4">Quick Actions</h5>
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-outline-primary" onclick="showTab('tests'); openAddModal('test')">
+                                            <i class="bi bi-plus-circle me-2"></i>Add New Test
+                                        </button>
+                                        <button class="btn btn-outline-success" onclick="showTab('labs'); openAddModal('lab')">
+                                            <i class="bi bi-building me-2"></i>Add New Lab
+                                        </button>
+                                        <button class="btn btn-outline-info" onclick="showTab('doctors'); openAddModal('doctor')">
+                                            <i class="bi bi-person-plus me-2"></i>Add New Doctor
+                                        </button>
+                                        <button class="btn btn-outline-warning" onclick="showTab('collectors'); openAddModal('collector')">
+                                            <i class="bi bi-person-badge me-2"></i>Add Collector
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bookings Tab -->
+                <div id="bookingsTab" style="display: none;">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" id="searchBooking" placeholder="Search by ID or patient name...">
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-select" id="bookingStatusFilter">
+                                        <option value="">All Status</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="confirmed">Confirmed</option>
+                                        <option value="collected">Collected</option>
+                                        <option value="completed">Completed</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="date" class="form-control" id="bookingDateFilter">
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-primary w-100" onclick="loadBookings()">Filter</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="data-table">
+                        <div class="table-header">
+                            <h5>All Bookings</h5>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Booking ID</th>
+                                        <th>Patient</th>
+                                        <th>Tests</th>
+                                        <th>Date & Time</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Collector</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bookingsTable">
+                                    <tr><td colspan="8" class="text-center py-3 text-muted">No bookings</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manage Tests Tab -->
+                <div id="testsTab" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5>Manage Blood Tests</h5>
+                        <button class="btn btn-primary" onclick="openAddModal('test')">
+                            <i class="bi bi-plus-circle me-2"></i>Add New Test
+                        </button>
+                    </div>
+                    <div class="data-table">
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Test Name</th>
+                                        <th>Category</th>
+                                        <th>Lab</th>
+                                        <th>Price</th>
+                                        <th>Original Price</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="testsTable">
+                                    <tr><td colspan="7" class="text-center py-3 text-muted">No tests</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manage Labs Tab -->
+                <div id="labsTab" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5>Manage Labs</h5>
+                        <button class="btn btn-primary" onclick="openAddModal('lab')">
+                            <i class="bi bi-plus-circle me-2"></i>Add New Lab
+                        </button>
+                    </div>
+                    <div class="data-table">
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Lab Name</th>
+                                        <th>Accreditation</th>
+                                        <th>Rating</th>
+                                        <th>Tests</th>
+                                        <th>Address</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="labsTable">
+                                    <tr><td colspan="7" class="text-center py-3 text-muted">No labs</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manage Doctors Tab -->
+                <div id="doctorsTab" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5>Manage Doctors</h5>
+                        <button class="btn btn-primary" onclick="openAddModal('doctor')">
+                            <i class="bi bi-plus-circle me-2"></i>Add New Doctor
+                        </button>
+                    </div>
+                    <div class="data-table">
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Doctor Name</th>
+                                        <th>Specialty</th>
+                                        <th>Qualification</th>
+                                        <th>Experience</th>
+                                        <th>Fee</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="doctorsTable">
+                                    <tr><td colspan="7" class="text-center py-3 text-muted">No doctors</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Collectors Tab -->
+                <div id="collectorsTab" style="display: none;">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5>Manage Collectors</h5>
+                        <button class="btn btn-primary" onclick="openAddModal('collector')">
+                            <i class="bi bi-plus-circle me-2"></i>Add New Collector
+                        </button>
+                    </div>
+                    <div class="data-table">
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Area</th>
+                                        <th>Assigned</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="collectorsTable">
+                                    <tr><td colspan="7" class="text-center py-3 text-muted">No collectors</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upload Reports Tab -->
+                <div id="reportsTab" style="display: none;">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="data-table">
+                                <div class="table-header">
+                                    <h5>Completed Collections (Pending Reports)</h5>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Booking ID</th>
+                                                <th>Patient</th>
+                                                <th>Tests</th>
+                                                <th>Collected At</th>
+                                                <th>Report</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="pendingReportsTable">
+                                            <tr><td colspan="6" class="text-center py-3 text-muted">No pending reports</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-4">Upload Report</h5>
+                                    <form id="uploadReportForm">
+                                        <div class="mb-3">
+                                            <label class="form-label">Booking ID</label>
+                                            <input type="text" class="form-control" id="reportBookingId" placeholder="Enter booking ID" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Report File</label>
+                                            <input type="file" class="form-control" id="reportFile" accept=".pdf,.jpg,.png" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Notes (Optional)</label>
+                                            <textarea class="form-control" id="reportNotes" rows="3"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary w-100">
+                                            <i class="bi bi-upload me-2"></i>Upload Report
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users Tab -->
+                <div id="usersTab" style="display: none;">
+                    <div class="data-table">
+                        <div class="table-header">
+                            <h5>Registered Users</h5>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Type</th>
+                                        <th>Joined</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="usersTable">
+                                    <tr><td colspan="6" class="text-center py-3 text-muted">No users</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Add Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Form will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assign Collector Modal -->
+    <div class="modal fade" id="assignModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Assign Collector</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="assignCollectorForm">
+                        <input type="hidden" id="assignBookingId">
+                        <div class="mb-3">
+                            <label class="form-label">Select Collector</label>
+                            <select class="form-select" id="collectorSelect" required>
+                                <option value="">Choose collector...</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Assign</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/main.js"></script>
+    <script>
+        // Check authentication
+        if (!TestMyBlood.isLoggedIn()) {
+            window.location.href = 'login.html';
+        }
+
+        const user = TestMyBlood.getCurrentUser();
+        if (user && user.userType !== 'admin') {
+            window.location.href = 'login.html';
+        }
+
+        // Show tab
+        function showTab(tab) {
+            // Hide all tabs
+            const tabs = ['dashboard', 'bookings', 'tests', 'labs', 'doctors', 'collectors', 'reports', 'users'];
+            tabs.forEach(t => {
+                document.getElementById(t + 'Tab').style.display = 'none';
+                document.getElementById(t + 'Link')?.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tab + 'Tab').style.display = 'block';
+            document.getElementById(tab + 'Link')?.classList.add('active');
+
+            // Update page title
+            const titles = {
+                dashboard: 'Dashboard',
+                bookings: 'Manage Bookings',
+                tests: 'Manage Tests',
+                labs: 'Manage Labs',
+                doctors: 'Manage Doctors',
+                collectors: 'Manage Collectors',
+                reports: 'Upload Reports',
+                users: 'Manage Users'
+            };
+            document.getElementById('pageTitle').textContent = titles[tab];
+
+            // Load data
+            loadTabData(tab);
+        }
+
+        // Load tab data
+        function loadTabData(tab) {
+            switch(tab) {
+                case 'dashboard': loadDashboard(); break;
+                case 'bookings': loadBookings(); break;
+                case 'tests': loadTests(); break;
+                case 'labs': loadLabs(); break;
+                case 'doctors': loadDoctors(); break;
+                case 'collectors': loadCollectors(); break;
+                case 'reports': loadPendingReports(); break;
+                case 'users': loadUsers(); break;
+            }
+        }
+
+        // Load dashboard
+        function loadDashboard() {
+            const bookings = TestMyBlood.getAllBookings();
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+            document.getElementById('totalBookings').textContent = bookings.length;
+            document.getElementById('pendingBookings').textContent = bookings.filter(b => b.status === 'pending').length;
+            document.getElementById('completedBookings').textContent = bookings.filter(b => b.status === 'completed').length;
+            document.getElementById('totalUsers').textContent = users.filter(u => u.userType === 'patient').length;
+            document.getElementById('notificationCount').textContent = bookings.filter(b => b.status === 'pending').length;
+
+            // Recent bookings
+            const tbody = document.getElementById('recentBookingsTable');
+            if (bookings.length > 0) {
+                tbody.innerHTML = bookings.slice(0, 5).map(b => `
+                    <tr>
+                        <td>${b.id}</td>
+                        <td>${b.patientName}</td>
+                        <td>${new Date(b.date).toLocaleDateString()}</td>
+                        <td><span class="status-badge ${b.status}">${b.status}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary" onclick="showTab('bookings')">View</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        // Load bookings
+        function loadBookings() {
+            const bookings = TestMyBlood.getAllBookings();
+            const searchTerm = document.getElementById('searchBooking')?.value?.toLowerCase() || '';
+            const statusFilter = document.getElementById('bookingStatusFilter')?.value || '';
+            const dateFilter = document.getElementById('bookingDateFilter')?.value || '';
+
+            let filtered = bookings.filter(b => {
+                const matchesSearch = b.id.toLowerCase().includes(searchTerm) ||
+                    b.patientName?.toLowerCase().includes(searchTerm);
+                const matchesStatus = !statusFilter || b.status === statusFilter;
+                const matchesDate = !dateFilter || b.date === dateFilter;
+                return matchesSearch && matchesStatus && matchesDate;
+            });
+
+            const tbody = document.getElementById('bookingsTable');
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center py-3 text-muted">No bookings found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(b => `
+                <tr>
+                    <td><strong>${b.id}</strong></td>
+                    <td>${b.patientName}<br><small class="text-muted">${b.phone}</small></td>
+                    <td><small>${b.tests?.map(t => t.name).join(', ').substring(0, 30)}...</small></td>
+                    <td>${new Date(b.date).toLocaleDateString()}<br><small>${b.time}</small></td>
+                    <td>₹${b.totalAmount}</td>
+                    <td><span class="status-badge ${b.status}">${b.status}</span></td>
+                    <td>${b.collectorId ? getCollectorName(b.collectorId) : '<span class="text-muted">Not assigned</span>'}</td>
+                    <td>
+                        ${b.status === 'pending' ? `
+                            <button class="btn btn-sm btn-success me-1" onclick="updateStatus('${b.id}', 'confirmed')">
+                                <i class="bi bi-check"></i>
+                            </button>
+                            <button class="btn btn-sm btn-primary" onclick="openAssignModal('${b.id}')">
+                                <i class="bi bi-person-plus"></i>
+                            </button>
+                        ` : b.status === 'confirmed' && !b.collectorId ? `
+                            <button class="btn btn-sm btn-primary" onclick="openAssignModal('${b.id}')">
+                                <i class="bi bi-person-plus"></i>
+                            </button>
+                        ` : b.status === 'collected' ? `
+                            <button class="btn btn-sm btn-success" onclick="updateStatus('${b.id}', 'completed')">
+                                Complete
+                            </button>
+                        ` : ''}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function getCollectorName(collectorId) {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const collector = users.find(u => u.id === collectorId);
+            return collector?.name || 'Unknown';
+        }
+
+        function updateStatus(bookingId, status) {
+            TestMyBlood.updateBookingStatus(bookingId, status);
+            TestMyBlood.showToast('Status updated!', 'success');
+            loadBookings();
+        }
+
+        function openAssignModal(bookingId) {
+            document.getElementById('assignBookingId').value = bookingId;
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const collectors = users.filter(u => u.userType === 'collector');
+
+            document.getElementById('collectorSelect').innerHTML = `
+                <option value="">Choose collector...</option>
+                ${collectors.map(c => `<option value="${c.id}">${c.name} - ${c.area || 'No area'}</option>`).join('')}
+            `;
+
+            new bootstrap.Modal(document.getElementById('assignModal')).show();
+        }
+
+        document.getElementById('assignCollectorForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const bookingId = document.getElementById('assignBookingId').value;
+            const collectorId = parseInt(document.getElementById('collectorSelect').value);
+
+            TestMyBlood.updateBookingStatus(bookingId, 'confirmed', collectorId);
+            TestMyBlood.showToast('Collector assigned!', 'success');
+            bootstrap.Modal.getInstance(document.getElementById('assignModal')).hide();
+            loadBookings();
+        });
+
+        // Load tests
+        function loadTests() {
+            const tests = JSON.parse(localStorage.getItem('testsData') || '[]');
+            const tbody = document.getElementById('testsTable');
+
+            tbody.innerHTML = tests.map(t => `
+                <tr>
+                    <td>${t.id}</td>
+                    <td>${t.name}</td>
+                    <td><span class="badge bg-light text-dark">${t.category}</span></td>
+                    <td>${t.lab}</td>
+                    <td>₹${t.price}</td>
+                    <td>₹${t.originalPrice}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary me-1" onclick="editTest(${t.id})">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteTest(${t.id})">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Load labs
+        function loadLabs() {
+            const labs = JSON.parse(localStorage.getItem('labsData') || '[]');
+            const tbody = document.getElementById('labsTable');
+
+            tbody.innerHTML = labs.map(l => `
+                <tr>
+                    <td>${l.id}</td>
+                    <td>${l.name}</td>
+                    <td>${l.accreditation}</td>
+                    <td>${l.rating}</td>
+                    <td>${l.tests}</td>
+                    <td><small>${l.address}</small></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary me-1" onclick="editLab(${l.id})">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteLab(${l.id})">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Load doctors
+        function loadDoctors() {
+            const doctors = JSON.parse(localStorage.getItem('doctorsData') || '[]');
+            const tbody = document.getElementById('doctorsTable');
+
+            tbody.innerHTML = doctors.map(d => `
+                <tr>
+                    <td>${d.id}</td>
+                    <td>${d.name}</td>
+                    <td>${d.specialty}</td>
+                    <td>${d.qualification}</td>
+                    <td>${d.experience} yrs</td>
+                    <td>₹${d.fee}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary me-1" onclick="editDoctor(${d.id})">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteDoctor(${d.id})">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Load collectors
+        function loadCollectors() {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const collectors = users.filter(u => u.userType === 'collector');
+            const bookings = TestMyBlood.getAllBookings();
+
+            const tbody = document.getElementById('collectorsTable');
+
+            tbody.innerHTML = collectors.map(c => {
+                const assigned = bookings.filter(b => b.collectorId === c.id && b.status !== 'completed').length;
+                return `
+                    <tr>
+                        <td>${c.id}</td>
+                        <td>${c.name}</td>
+                        <td>${c.email}</td>
+                        <td>${c.phone || '-'}</td>
+                        <td>${c.area || '-'}</td>
+                        <td><span class="badge bg-primary">${assigned}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteCollector(${c.id})">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            if (collectors.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center py-3 text-muted">No collectors</td></tr>';
+            }
+        }
+
+        // Load pending reports
+        function loadPendingReports() {
+            const bookings = TestMyBlood.getAllBookings();
+            const pending = bookings.filter(b => b.status === 'collected' || (b.status === 'completed' && !b.reportUrl));
+
+            const tbody = document.getElementById('pendingReportsTable');
+
+            if (pending.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-3 text-muted">No pending reports</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = pending.map(b => `
+                <tr>
+                    <td>${b.id}</td>
+                    <td>${b.patientName}</td>
+                    <td><small>${b.tests?.map(t => t.name).join(', ').substring(0, 40)}...</small></td>
+                    <td>${b.collectedAt ? new Date(b.collectedAt).toLocaleString() : '-'}</td>
+                    <td>${b.reportUrl ? '<span class="text-success">Uploaded</span>' : '<span class="text-warning">Pending</span>'}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" onclick="document.getElementById('reportBookingId').value='${b.id}'">
+                            Upload
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Load users
+        function loadUsers() {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const tbody = document.getElementById('usersTable');
+
+            tbody.innerHTML = users.map(u => `
+                <tr>
+                    <td>${u.id}</td>
+                    <td>${u.name}</td>
+                    <td>${u.email}</td>
+                    <td>${u.phone || '-'}</td>
+                    <td><span class="badge bg-${u.userType === 'admin' ? 'danger' : u.userType === 'collector' ? 'warning' : 'primary'}">${u.userType}</span></td>
+                    <td>${u.createdAt ? new Date(u.createdAt).toLocaleDateString() : '-'}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Open add modal
+        function openAddModal(type) {
+            const modal = document.getElementById('addModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+
+            const forms = {
+                test: `
+                    <form id="addTestForm">
+                        <div class="mb-3">
+                            <label class="form-label">Test Name</label>
+                            <input type="text" class="form-control" id="testName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" id="testDescription" rows="2"></textarea>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label">Price (₹)</label>
+                                <input type="number" class="form-control" id="testPrice" required>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">Original Price (₹)</label>
+                                <input type="number" class="form-control" id="testOriginalPrice" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label">Category</label>
+                                <select class="form-select" id="testCategory" required>
+                                    <option value="Basic">Basic</option>
+                                    <option value="Heart">Heart</option>
+                                    <option value="Thyroid">Thyroid</option>
+                                    <option value="Diabetes">Diabetes</option>
+                                    <option value="Liver">Liver</option>
+                                    <option value="Kidney">Kidney</option>
+                                    <option value="Vitamin">Vitamin</option>
+                                    <option value="Package">Package</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">Lab</label>
+                                <select class="form-select" id="testLab" required>
+                                    ${JSON.parse(localStorage.getItem('labsData') || '[]').map(l => `<option value="${l.name}">${l.name}</option>`).join('')}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label">Report Time</label>
+                                <input type="text" class="form-control" id="testReportTime" placeholder="e.g., 24 hrs">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">Fasting Required</label>
+                                <select class="form-select" id="testFasting">
+                                    <option value="false">No</option>
+                                    <option value="true">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Add Test</button>
+                    </form>
+                `,
+                lab: `
+                    <form id="addLabForm">
+                        <div class="mb-3">
+                            <label class="form-label">Lab Name</label>
+                            <input type="text" class="form-control" id="labName" required>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label">Accreditation</label>
+                                <input type="text" class="form-control" id="labAccreditation" placeholder="e.g., NABL Accredited">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">Rating</label>
+                                <input type="number" class="form-control" id="labRating" min="1" max="5" step="0.1">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Address</label>
+                            <input type="text" class="form-control" id="labAddress">
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label">Phone</label>
+                                <input type="tel" class="form-control" id="labPhone">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">Tests Available</label>
+                                <input type="number" class="form-control" id="labTests">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Add Lab</button>
+                    </form>
+                `,
+                doctor: `
+                    <form id="addDoctorForm">
+                        <div class="mb-3">
+                            <label class="form-label">Doctor Name</label>
+                            <input type="text" class="form-control" id="doctorName" required>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label">Specialty</label>
+                                <select class="form-select" id="doctorSpecialty" required>
+                                    <option value="General Physician">General Physician</option>
+                                    <option value="Pathologist">Pathologist</option>
+                                    <option value="Diabetologist">Diabetologist</option>
+                                    <option value="Cardiologist">Cardiologist</option>
+                                    <option value="Endocrinologist">Endocrinologist</option>
+                                    <option value="Hematologist">Hematologist</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">Qualification</label>
+                                <input type="text" class="form-control" id="doctorQualification" placeholder="e.g., MBBS, MD">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label">Experience (Years)</label>
+                                <input type="number" class="form-control" id="doctorExperience">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">Consultation Fee (₹)</label>
+                                <input type="number" class="form-control" id="doctorFee">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Add Doctor</button>
+                    </form>
+                `,
+                collector: `
+                    <form id="addCollectorForm">
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="collectorName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="collectorEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" id="collectorPassword" required>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label">Phone</label>
+                                <input type="tel" class="form-control" id="collectorPhone">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">Area</label>
+                                <input type="text" class="form-control" id="collectorArea" placeholder="e.g., Central Zone">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Add Collector</button>
+                    </form>
+                `
+            };
+
+            title.textContent = 'Add ' + type.charAt(0).toUpperCase() + type.slice(1);
+            body.innerHTML = forms[type];
+
+            new bootstrap.Modal(modal).show();
+
+            // Add form handlers
+            setTimeout(() => {
+                document.getElementById('addTestForm')?.addEventListener('submit', handleAddTest);
+                document.getElementById('addLabForm')?.addEventListener('submit', handleAddLab);
+                document.getElementById('addDoctorForm')?.addEventListener('submit', handleAddDoctor);
+                document.getElementById('addCollectorForm')?.addEventListener('submit', handleAddCollector);
+            }, 100);
+        }
+
+        function handleAddTest(e) {
+            e.preventDefault();
+            const test = {
+                name: document.getElementById('testName').value,
+                description: document.getElementById('testDescription').value,
+                price: parseInt(document.getElementById('testPrice').value),
+                originalPrice: parseInt(document.getElementById('testOriginalPrice').value),
+                category: document.getElementById('testCategory').value,
+                lab: document.getElementById('testLab').value,
+                reportTime: document.getElementById('testReportTime').value || '24 hrs',
+                fasting: document.getElementById('testFasting').value === 'true'
+            };
+            TestMyBlood.addTest(test);
+            bootstrap.Modal.getInstance(document.getElementById('addModal')).hide();
+            TestMyBlood.showToast('Test added successfully!', 'success');
+            loadTests();
+        }
+
+        function handleAddLab(e) {
+            e.preventDefault();
+            const lab = {
+                name: document.getElementById('labName').value,
+                accreditation: document.getElementById('labAccreditation').value,
+                rating: parseFloat(document.getElementById('labRating').value) || 4.0,
+                address: document.getElementById('labAddress').value,
+                phone: document.getElementById('labPhone').value,
+                tests: parseInt(document.getElementById('labTests').value) || 100,
+                image: 'https://via.placeholder.com/80x80?text=Lab'
+            };
+            TestMyBlood.addLab(lab);
+            bootstrap.Modal.getInstance(document.getElementById('addModal')).hide();
+            TestMyBlood.showToast('Lab added successfully!', 'success');
+            loadLabs();
+        }
+
+        function handleAddDoctor(e) {
+            e.preventDefault();
+            const doctor = {
+                name: document.getElementById('doctorName').value,
+                specialty: document.getElementById('doctorSpecialty').value,
+                qualification: document.getElementById('doctorQualification').value,
+                experience: parseInt(document.getElementById('doctorExperience').value) || 5,
+                fee: parseInt(document.getElementById('doctorFee').value) || 500,
+                image: 'https://randomuser.me/api/portraits/men/' + Math.floor(Math.random() * 100) + '.jpg',
+                available: ['Mon', 'Wed', 'Fri']
+            };
+            TestMyBlood.addDoctor(doctor);
+            bootstrap.Modal.getInstance(document.getElementById('addModal')).hide();
+            TestMyBlood.showToast('Doctor added successfully!', 'success');
+            loadDoctors();
+        }
+
+        function handleAddCollector(e) {
+            e.preventDefault();
+            const collector = {
+                name: document.getElementById('collectorName').value,
+                email: document.getElementById('collectorEmail').value,
+                password: document.getElementById('collectorPassword').value,
+                phone: document.getElementById('collectorPhone').value,
+                area: document.getElementById('collectorArea').value,
+                userType: 'collector'
+            };
+            const result = TestMyBlood.registerUser(collector);
+            if (result.success) {
+                // Remove from currentUser since admin is adding
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                bootstrap.Modal.getInstance(document.getElementById('addModal')).hide();
+                TestMyBlood.showToast('Collector added successfully!', 'success');
+                loadCollectors();
+            } else {
+                TestMyBlood.showToast(result.message, 'danger');
+            }
+        }
+
+        // Delete functions
+        function deleteTest(id) {
+            if (confirm('Are you sure you want to delete this test?')) {
+                TestMyBlood.deleteTest(id);
+                TestMyBlood.showToast('Test deleted!', 'success');
+                loadTests();
+            }
+        }
+
+        function deleteLab(id) {
+            if (confirm('Are you sure you want to delete this lab?')) {
+                let labs = JSON.parse(localStorage.getItem('labsData') || '[]');
+                labs = labs.filter(l => l.id !== id);
+                localStorage.setItem('labsData', JSON.stringify(labs));
+                TestMyBlood.showToast('Lab deleted!', 'success');
+                loadLabs();
+            }
+        }
+
+        function deleteDoctor(id) {
+            if (confirm('Are you sure you want to delete this doctor?')) {
+                let doctors = JSON.parse(localStorage.getItem('doctorsData') || '[]');
+                doctors = doctors.filter(d => d.id !== id);
+                localStorage.setItem('doctorsData', JSON.stringify(doctors));
+                TestMyBlood.showToast('Doctor deleted!', 'success');
+                loadDoctors();
+            }
+        }
+
+        function deleteCollector(id) {
+            if (confirm('Are you sure you want to delete this collector?')) {
+                let users = JSON.parse(localStorage.getItem('users') || '[]');
+                users = users.filter(u => u.id !== id);
+                localStorage.setItem('users', JSON.stringify(users));
+                TestMyBlood.showToast('Collector deleted!', 'success');
+                loadCollectors();
+            }
+        }
+
+        // Upload report
+        document.getElementById('uploadReportForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const bookingId = document.getElementById('reportBookingId').value;
+
+            let bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+            const index = bookings.findIndex(b => b.id === bookingId);
+
+            if (index !== -1) {
+                bookings[index].reportUrl = 'report_' + bookingId + '.pdf';
+                bookings[index].status = 'completed';
+                bookings[index].reportNotes = document.getElementById('reportNotes').value;
+                localStorage.setItem('bookings', JSON.stringify(bookings));
+
+                TestMyBlood.showToast('Report uploaded successfully!', 'success');
+                this.reset();
+                loadPendingReports();
+            } else {
+                TestMyBlood.showToast('Booking not found!', 'danger');
+            }
+        });
+
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        }
+
+        // Initial load
+        loadDashboard();
+    </script>
+</body>
+</html>

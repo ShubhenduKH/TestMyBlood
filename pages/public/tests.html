@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Tests & Prices - LAB CARE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">
+                <i class="bi bi-droplet-fill"></i> LAB<span>CARE</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="../../index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="tests.html">Blood Tests</a></li>
+                    <li class="nav-item"><a class="nav-link" href="labs.html">Labs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="doctors.html">Doctors</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+                <div class="d-flex gap-2 align-items-center">
+                    <a href="../patient/book-test.html" class="btn btn-outline-primary position-relative me-2" title="Cart">
+                        <i class="bi bi-cart3"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-count" style="display: none;">0</span>
+                    </a>
+                    <div id="navAuthButtons">
+                        <a href="../patient/login.html" class="btn btn-outline-primary">Login</a>
+                        <a href="../patient/signup.html" class="btn btn-primary">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="bg-gradient-secondary text-white py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold">Blood Tests & Prices</h1>
+                    <p class="lead mb-0">Browse our comprehensive range of blood tests at affordable prices</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search & Filter -->
+    <section class="py-4 bg-white border-bottom">
+        <div class="container">
+            <div class="row g-3 align-items-center">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                        <input type="text" class="form-control" id="searchTests" placeholder="Search tests...">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select" id="categoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="Basic">Basic Tests</option>
+                        <option value="Heart">Heart Health</option>
+                        <option value="Thyroid">Thyroid</option>
+                        <option value="Diabetes">Diabetes</option>
+                        <option value="Liver">Liver</option>
+                        <option value="Kidney">Kidney</option>
+                        <option value="Vitamin">Vitamins</option>
+                        <option value="Package">Health Packages</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select" id="labFilter">
+                        <option value="">All Labs</option>
+                        <option value="HealthCare Labs">HealthCare Labs</option>
+                        <option value="DiagnoPlus">DiagnoPlus</option>
+                        <option value="MedTest Center">MedTest Center</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select" id="sortBy">
+                        <option value="name">Sort by Name</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tests Listing -->
+    <section class="section">
+        <div class="container">
+            <div class="row" id="testsContainer">
+                <!-- Tests will be loaded here dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Health Packages -->
+    <section class="section bg-white">
+        <div class="container">
+            <div class="section-title">
+                <h2>Popular Health Packages</h2>
+                <p>Comprehensive health checkups at great prices</p>
+                <div class="underline"></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <div class="card-body p-4">
+                            <span class="badge bg-danger mb-3">Best Seller</span>
+                            <h4 class="card-title">Basic Health Checkup</h4>
+                            <p class="text-muted">35+ parameters including CBC, Lipid Profile, Diabetes screening</p>
+                            <ul class="list-unstyled text-muted">
+                                <li><i class="bi bi-check-circle text-success me-2"></i>Complete Blood Count</li>
+                                <li><i class="bi bi-check-circle text-success me-2"></i>Lipid Profile</li>
+                                <li><i class="bi bi-check-circle text-success me-2"></i>Blood Sugar (Fasting)</li>
+                                <li><i class="bi bi-check-circle text-success me-2"></i>Liver Function Test</li>
+                                <li><i class="bi bi-check-circle text-success me-2"></i>Kidney Function Test</li>
+                            </ul>
+                            <div class="d-flex align-items-center gap-2 mb-3">
+                                <span class="price">&#8377;799</span>
+                                <span class="original-price">&#8377;1,299</span>
+                                <span class="badge bg-success">38% OFF</span>
+                            </div>
+                            <a href="../patient/book-test.html" class="btn btn-primary w-100">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <div class="card-body p-4">
+                            <span class="badge bg-warning text-dark mb-3">Popular</span>
+                            <h4 class="card-title">Full Body Checkup</h4>
+                            <p class="text-muted">70+ parameters comprehensive health assessment</p>
+                            <ul class="list-unstyled text-muted">
+                                <li><i class="bi bi-check-circle text-success me-2"></i>All Basic Tests</li>
+                                <li><i class="bi bi-check-circle text-success me-2"></i>Thyroid Profile</li>
+                                <li><i class="bi bi-check-circle text-success me-2"></i>Vitamin D & B12</li>
+                                <li><i class="bi bi-check-circle text-success me-2"></i>Iron Studies</li>
+                                <li><i class="bi bi-check-circle text-success me-2"></i>Free Doctor Consultation</li>
+                            </ul>
+                            <div class="d-flex align-items-center gap-2 mb-3">
+                                <span class="price">&#8377;1,499</span>
+                                <span class="original-price">&#8377;2,499</span>
+                                <span class="badge bg-success">40% OFF</span>
+                            </div>
+                            <a href="../patient/book-test.html" class="btn btn-primary w-100">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <div class="card-body p-4">
+                            <span class="badge bg-info mb-3">Premium</span>
+                            <h4 class="card-title">Executive Health Checkup</h4>
+                            <p class="text-muted">100+ parameters with advanced cardiac markers</p>
+                            <ul class="list-unstyled text-muted">
+                                <li><i class="bi bi-check-circle text-success me-2"></i>All Full Body Tests</li>
+                                <li><i class="bi bi-check-circle text-success me-2"></i>Cardiac Risk Markers</li>
+                                <li><i class="bi bi-check-circle text-success me-2"></i>Cancer Screening</li>
+                                <li><i class="bi bi-check-circle text-success me-2"></i>Hormone Panel</li>
+                                <li><i class="bi bi-check-circle text-success me-2"></i>Priority Report Delivery</li>
+                            </ul>
+                            <div class="d-flex align-items-center gap-2 mb-3">
+                                <span class="price">&#8377;2,999</span>
+                                <span class="original-price">&#8377;4,999</span>
+                                <span class="badge bg-success">40% OFF</span>
+                            </div>
+                            <a href="../patient/book-test.html" class="btn btn-primary w-100">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+        <div class="container">
+            <div class="card bg-gradient-primary text-white p-5 text-center">
+                <h2 class="mb-3">Can't find the test you're looking for?</h2>
+                <p class="mb-4">Contact us and we'll help you find the right test for your needs</p>
+                <div>
+                    <a href="contact.html" class="btn btn-light btn-lg">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h4 class="text-white mb-3">
+                        <i class="bi bi-droplet-fill text-danger"></i> LAB<span>CARE</span>
+                    </h4>
+                    <p class="text-white-50">Your trusted partner for all blood tests and health checkups.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="../../index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="tests.html">Blood Tests</a></li>
+                        <li><a href="labs.html">Labs</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>For Patients</h5>
+                    <ul class="footer-links">
+                        <li><a href="../patient/signup.html">Sign Up</a></li>
+                        <li><a href="../patient/login.html">Login</a></li>
+                        <li><a href="../patient/book-test.html">Book Test</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h5>Contact Us</h5>
+                    <div class="contact-info">
+                        <p><i class="bi bi-geo-alt-fill"></i> 123 Health Street, Medical City</p>
+                        <p><i class="bi bi-telephone-fill"></i> +91 98765 43210</p>
+                        <p><i class="bi bi-envelope-fill"></i> support@testmyblood.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 LAB CARE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/main.js"></script>
+    <script>
+        let allTests = [];
+        let allLabs = [];
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Update navbar auth state
+            updateNavbarAuthState();
+            // Update cart count
+            Utils.updateCartCount();
+            // Load tests from API
+            await loadTestsFromAPI();
+            // Load labs from API
+            await loadLabsFromAPI();
+        });
+
+        function updateNavbarAuthState() {
+            const authButtons = document.getElementById('navAuthButtons');
+            if (!authButtons) return;
+
+            if (API.Auth.isLoggedIn()) {
+                const user = API.Auth.getCurrentUser();
+                authButtons.innerHTML = `
+                    <a href="../patient/dashboard.html" class="btn btn-outline-primary">
+                        <i class="bi bi-person-circle me-1"></i>${user.name || 'Dashboard'}
+                    </a>
+                    <button class="btn btn-primary" onclick="API.Auth.logout()">
+                        <i class="bi bi-box-arrow-right me-1"></i>Logout
+                    </button>
+                `;
+            }
+        }
+
+        // Load tests from API
+        async function loadTestsFromAPI() {
+            const container = document.getElementById('testsContainer');
+            container.innerHTML = `
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-3">Loading tests...</p>
+                </div>
+            `;
+
+            try {
+                const response = await API.Tests.getAll();
+                if (response.success) {
+                    allTests = response.data;
+                    renderTests();
+                } else {
+                    container.innerHTML = `
+                        <div class="col-12 text-center py-5">
+                            <i class="bi bi-exclamation-circle display-1 text-danger"></i>
+                            <h4 class="mt-3">Failed to load tests</h4>
+                            <p class="text-muted">Please try again later</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Load tests error:', error);
+                container.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <i class="bi bi-exclamation-circle display-1 text-danger"></i>
+                        <h4 class="mt-3">Failed to load tests</h4>
+                        <p class="text-muted">Please check if the server is running</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Load labs from API
+        async function loadLabsFromAPI() {
+            try {
+                const response = await API.Labs.getAll();
+                if (response.success) {
+                    allLabs = response.data;
+                    populateLabFilter();
+                }
+            } catch (error) {
+                console.error('Load labs error:', error);
+            }
+        }
+
+        function populateLabFilter() {
+            const labFilter = document.getElementById('labFilter');
+            labFilter.innerHTML = '<option value="">All Labs</option>';
+            allLabs.forEach(lab => {
+                labFilter.innerHTML += `<option value="${lab.id}">${lab.name}</option>`;
+            });
+        }
+
+        // Render tests
+        function renderTests() {
+            const container = document.getElementById('testsContainer');
+            const searchTerm = document.getElementById('searchTests').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            const labId = document.getElementById('labFilter').value;
+            const sortBy = document.getElementById('sortBy').value;
+
+            let filteredTests = allTests.filter(test => {
+                const matchesSearch = test.name.toLowerCase().includes(searchTerm) ||
+                                     (test.description && test.description.toLowerCase().includes(searchTerm));
+                const matchesCategory = !category || test.category === category;
+                const matchesLab = !labId || test.lab_id == labId;
+                return matchesSearch && matchesCategory && matchesLab && test.is_active;
+            });
+
+            // Sort tests
+            if (sortBy === 'price-low') {
+                filteredTests.sort((a, b) => a.price - b.price);
+            } else if (sortBy === 'price-high') {
+                filteredTests.sort((a, b) => b.price - a.price);
+            } else {
+                filteredTests.sort((a, b) => a.name.localeCompare(b.name));
+            }
+
+            if (filteredTests.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <i class="bi bi-search display-1 text-muted"></i>
+                        <h4 class="mt-3">No tests found</h4>
+                        <p class="text-muted">Try adjusting your search or filter criteria</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filteredTests.map(test => renderTestCard(test)).join('');
+        }
+
+        // Render test card
+        function renderTestCard(test) {
+            const discount = test.original_price ? Math.round((1 - test.price / test.original_price) * 100) : 0;
+            const lab = allLabs.find(l => l.id === test.lab_id);
+
+            return `
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card test-card-enhanced h-100 position-relative">
+                        ${discount > 0 ? `<span class="badge bg-danger" style="position: absolute; top: 15px; right: 15px;">${discount}% OFF</span>` : ''}
+                        <div class="card-body">
+                            <span class="badge bg-light text-dark mb-2">${test.category}</span>
+                            <h5 class="card-title">${test.name}</h5>
+                            <p class="text-muted small mb-3">${test.description || ''}</p>
+                            ${lab ? `<p class="small text-primary mb-2"><i class="bi bi-building me-1"></i>${lab.name}</p>` : ''}
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <span class="price text-primary fw-bold fs-5">₹${test.price}</span>
+                                ${test.original_price > test.price ? `<span class="text-muted text-decoration-line-through">₹${test.original_price}</span>` : ''}
+                            </div>
+                            <div class="d-flex gap-2 flex-wrap mb-3">
+                                <span class="badge bg-light text-dark"><i class="bi bi-clock me-1"></i>${test.report_time}</span>
+                                <span class="badge bg-light text-dark"><i class="bi bi-${test.fasting_required ? 'exclamation-circle text-warning' : 'check-circle text-success'} me-1"></i>${test.fasting_required ? 'Fasting Required' : 'No Fasting'}</span>
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="addTestToCart(${test.id})">
+                                <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Add test to cart
+        function addTestToCart(testId) {
+            if (!API.Auth.isLoggedIn()) {
+                // Show login required message
+                if (confirm('Please login to add tests to cart. Go to login page?')) {
+                    window.location.href = '../patient/login.html';
+                }
+                return;
+            }
+
+            const test = allTests.find(t => t.id === testId);
+            if (!test) return;
+
+            // Use the cart from api.js
+            Utils.addToCart(test);
+        }
+
+        // Event listeners
+        document.getElementById('searchTests').addEventListener('input', renderTests);
+        document.getElementById('categoryFilter').addEventListener('change', renderTests);
+        document.getElementById('labFilter').addEventListener('change', renderTests);
+        document.getElementById('sortBy').addEventListener('change', renderTests);
+    </script>
+    <style>
+        /* Spin animation for loading */
+        .spin {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</body>
+</html>

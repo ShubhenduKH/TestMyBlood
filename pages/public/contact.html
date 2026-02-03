@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Test My Blood</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">
+                <i class="bi bi-droplet-fill"></i> Test<span>MyBlood</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="../../index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tests.html">Blood Tests</a></li>
+                    <li class="nav-item"><a class="nav-link" href="labs.html">Labs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="doctors.html">Doctors</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+                </ul>
+                <div class="d-flex gap-2">
+                    <a href="../patient/login.html" class="btn btn-outline-primary">Login</a>
+                    <a href="../patient/signup.html" class="btn btn-primary">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="bg-gradient-secondary text-white py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold">Contact Us</h1>
+                    <p class="lead mb-0">We're here to help you with all your queries</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section">
+        <div class="container">
+            <div class="row g-5">
+                <!-- Contact Form -->
+                <div class="col-lg-7">
+                    <div class="card p-4 p-lg-5">
+                        <h3 class="mb-4">Send Us a Message</h3>
+                        <form id="contactForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" placeholder="Enter your name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" placeholder="Enter your email" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" placeholder="Enter phone number">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Subject</label>
+                                    <select class="form-select">
+                                        <option selected>Select Subject</option>
+                                        <option>Booking Query</option>
+                                        <option>Report Issue</option>
+                                        <option>Refund Request</option>
+                                        <option>Partnership Inquiry</option>
+                                        <option>Feedback</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Message</label>
+                                    <textarea class="form-control" rows="5" placeholder="Write your message here..." required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="bi bi-send me-2"></i>Send Message
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="col-lg-5">
+                    <div class="card p-4 mb-4">
+                        <h4 class="mb-4">Contact Information</h4>
+                        <div class="d-flex mb-4">
+                            <div class="bg-primary bg-opacity-10 rounded-circle p-3 me-3">
+                                <i class="bi bi-geo-alt-fill text-primary fs-4"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Address</h6>
+                                <p class="text-muted mb-0">123 Health Street, Medical City<br>India - 110001</p>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-4">
+                            <div class="bg-success bg-opacity-10 rounded-circle p-3 me-3">
+                                <i class="bi bi-telephone-fill text-success fs-4"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Phone</h6>
+                                <p class="text-muted mb-0">+91 98765 43210<br>+91 98765 43211</p>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-4">
+                            <div class="bg-warning bg-opacity-10 rounded-circle p-3 me-3">
+                                <i class="bi bi-envelope-fill text-warning fs-4"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Email</h6>
+                                <p class="text-muted mb-0">support@testmyblood.com<br>info@testmyblood.com</p>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="bg-info bg-opacity-10 rounded-circle p-3 me-3">
+                                <i class="bi bi-clock-fill text-info fs-4"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Working Hours</h6>
+                                <p class="text-muted mb-0">Monday - Saturday: 7AM - 9PM<br>Sunday: 8AM - 6PM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-4">
+                        <h4 class="mb-4">Follow Us</h4>
+                        <div class="d-flex gap-3">
+                            <a href="#" class="btn btn-outline-primary btn-lg rounded-circle">
+                                <i class="bi bi-facebook"></i>
+                            </a>
+                            <a href="#" class="btn btn-outline-info btn-lg rounded-circle">
+                                <i class="bi bi-twitter"></i>
+                            </a>
+                            <a href="#" class="btn btn-outline-danger btn-lg rounded-circle">
+                                <i class="bi bi-instagram"></i>
+                            </a>
+                            <a href="#" class="btn btn-outline-primary btn-lg rounded-circle">
+                                <i class="bi bi-linkedin"></i>
+                            </a>
+                            <a href="#" class="btn btn-outline-danger btn-lg rounded-circle">
+                                <i class="bi bi-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="section bg-white pt-0">
+        <div class="container">
+            <div class="card overflow-hidden">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d224345.89795063882!2d77.04417325!3d28.527582449999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce3e564f8e8d5%3A0x3a5f0c0e3c1b6e0!2sNew%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1650000000000!5m2!1sen!2sin"
+                    width="100%"
+                    height="400"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <p>Quick answers to common queries</p>
+                <div class="underline"></div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    How do I book a blood test?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    You can book a blood test by signing up on our platform, selecting the tests you need, choosing a date and time slot, and providing your address for home collection. Our phlebotomist will visit your location at the scheduled time.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    Is home sample collection free?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    Yes, home sample collection is completely free for all orders. There are no hidden charges for doorstep collection services.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    How will I receive my reports?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    Reports are delivered digitally through our platform. You can access them from your dashboard, download as PDF, or receive via email/WhatsApp. Reports are typically available within 24-48 hours.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                    Can I reschedule or cancel my booking?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    Yes, you can reschedule or cancel your booking from your dashboard up to 2 hours before the scheduled collection time. Full refunds are processed for cancellations made within the allowed timeframe.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                    Are the labs NABL accredited?
+                                </button>
+                            </h2>
+                            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    Yes, we partner only with NABL-accredited and ISO-certified laboratories to ensure accurate and reliable test results. All our partner labs meet stringent quality standards.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h4 class="text-white mb-3">
+                        <i class="bi bi-droplet-fill text-danger"></i> Test<span>MyBlood</span>
+                    </h4>
+                    <p class="text-white-50">Your trusted partner for all blood tests and health checkups.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="../../index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="tests.html">Blood Tests</a></li>
+                        <li><a href="labs.html">Labs</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>For Patients</h5>
+                    <ul class="footer-links">
+                        <li><a href="../patient/signup.html">Sign Up</a></li>
+                        <li><a href="../patient/login.html">Login</a></li>
+                        <li><a href="../patient/book-test.html">Book Test</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h5>Contact Us</h5>
+                    <div class="contact-info">
+                        <p><i class="bi bi-geo-alt-fill"></i> 123 Health Street, Medical City</p>
+                        <p><i class="bi bi-telephone-fill"></i> +91 98765 43210</p>
+                        <p><i class="bi bi-envelope-fill"></i> support@testmyblood.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Test My Blood. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/main.js"></script>
+    <script>
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            TestMyBlood.showToast('Message sent successfully! We\'ll get back to you soon.', 'success');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

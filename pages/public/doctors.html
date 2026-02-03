@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Doctors - Test My Blood</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">
+                <i class="bi bi-droplet-fill"></i> Test<span>MyBlood</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="../../index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tests.html">Blood Tests</a></li>
+                    <li class="nav-item"><a class="nav-link" href="labs.html">Labs</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="doctors.html">Doctors</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+                <div class="d-flex gap-2">
+                    <a href="../patient/login.html" class="btn btn-outline-primary">Login</a>
+                    <a href="../patient/signup.html" class="btn btn-primary">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="bg-gradient-secondary text-white py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold">Our Expert Doctors</h1>
+                    <p class="lead mb-0">Consult with experienced healthcare professionals</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search & Filter -->
+    <section class="py-4 bg-white border-bottom">
+        <div class="container">
+            <div class="row g-3 align-items-center">
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                        <input type="text" class="form-control" id="searchDoctors" placeholder="Search doctors by name or specialty...">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <select class="form-select" id="specialtyFilter">
+                        <option value="">All Specialties</option>
+                        <option value="General Physician">General Physician</option>
+                        <option value="Pathologist">Pathologist</option>
+                        <option value="Diabetologist">Diabetologist</option>
+                        <option value="Cardiologist">Cardiologist</option>
+                        <option value="Endocrinologist">Endocrinologist</option>
+                        <option value="Hematologist">Hematologist</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select" id="sortDoctors">
+                        <option value="experience">Sort by Experience</option>
+                        <option value="name">Sort by Name</option>
+                        <option value="fee">Sort by Fee</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors Listing -->
+    <section class="section">
+        <div class="container">
+            <div class="row" id="doctorsContainer">
+                <!-- Doctors will be loaded here dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctor Appointment Modal -->
+    <div class="modal fade" id="appointmentModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">Book Appointment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="doctorInfo" class="text-center mb-4">
+                        <!-- Doctor info will be loaded here -->
+                    </div>
+                    <form id="appointmentForm">
+                        <div class="mb-3">
+                            <label class="form-label">Select Date</label>
+                            <input type="date" class="form-control" id="appointmentDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Select Time Slot</label>
+                            <select class="form-select" id="appointmentTime" required>
+                                <option value="">Choose time slot</option>
+                                <option value="09:00 AM">09:00 AM</option>
+                                <option value="10:00 AM">10:00 AM</option>
+                                <option value="11:00 AM">11:00 AM</option>
+                                <option value="12:00 PM">12:00 PM</option>
+                                <option value="02:00 PM">02:00 PM</option>
+                                <option value="03:00 PM">03:00 PM</option>
+                                <option value="04:00 PM">04:00 PM</option>
+                                <option value="05:00 PM">05:00 PM</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Reason for Visit</label>
+                            <textarea class="form-control" rows="3" id="visitReason" placeholder="Describe your health concern..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Confirm Appointment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How Consultation Works -->
+    <section class="section bg-white">
+        <div class="container">
+            <div class="section-title">
+                <h2>How Doctor Consultation Works</h2>
+                <p>Simple steps to get expert medical advice</p>
+                <div class="underline"></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card service-card h-100">
+                        <div class="card-icon">
+                            <i class="bi bi-person-plus"></i>
+                        </div>
+                        <h5 class="card-title">1. Choose Doctor</h5>
+                        <p class="text-muted">Select a doctor based on specialty and availability</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card service-card h-100">
+                        <div class="card-icon">
+                            <i class="bi bi-calendar-check"></i>
+                        </div>
+                        <h5 class="card-title">2. Book Appointment</h5>
+                        <p class="text-muted">Select your preferred date and time slot</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card service-card h-100">
+                        <div class="card-icon">
+                            <i class="bi bi-camera-video"></i>
+                        </div>
+                        <h5 class="card-title">3. Consultation</h5>
+                        <p class="text-muted">Connect with doctor via video/audio call</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card service-card h-100">
+                        <div class="card-icon">
+                            <i class="bi bi-file-earmark-medical"></i>
+                        </div>
+                        <h5 class="card-title">4. Prescription</h5>
+                        <p class="text-muted">Receive digital prescription and follow-up advice</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+        <div class="container">
+            <div class="card bg-gradient-primary text-white p-5 text-center">
+                <h2 class="mb-3">Need a Blood Test After Consultation?</h2>
+                <p class="mb-4">Book your recommended blood tests at discounted prices</p>
+                <div>
+                    <a href="tests.html" class="btn btn-light btn-lg me-3">Browse Tests</a>
+                    <a href="../patient/signup.html" class="btn btn-outline-light btn-lg">Sign Up Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h4 class="text-white mb-3">
+                        <i class="bi bi-droplet-fill text-danger"></i> Test<span>MyBlood</span>
+                    </h4>
+                    <p class="text-white-50">Your trusted partner for all blood tests and health checkups.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="../../index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="tests.html">Blood Tests</a></li>
+                        <li><a href="labs.html">Labs</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>For Patients</h5>
+                    <ul class="footer-links">
+                        <li><a href="../patient/signup.html">Sign Up</a></li>
+                        <li><a href="../patient/login.html">Login</a></li>
+                        <li><a href="../patient/book-test.html">Book Test</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h5>Contact Us</h5>
+                    <div class="contact-info">
+                        <p><i class="bi bi-geo-alt-fill"></i> 123 Health Street, Medical City</p>
+                        <p><i class="bi bi-telephone-fill"></i> +91 98765 43210</p>
+                        <p><i class="bi bi-envelope-fill"></i> support@testmyblood.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Test My Blood. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/main.js"></script>
+    <script>
+        let selectedDoctor = null;
+
+        // Load and display doctors
+        function loadDoctors() {
+            const doctors = JSON.parse(localStorage.getItem('doctorsData') || '[]');
+            const container = document.getElementById('doctorsContainer');
+            const searchTerm = document.getElementById('searchDoctors').value.toLowerCase();
+            const specialty = document.getElementById('specialtyFilter').value;
+            const sortBy = document.getElementById('sortDoctors').value;
+
+            let filteredDoctors = doctors.filter(doctor => {
+                const matchesSearch = doctor.name.toLowerCase().includes(searchTerm) ||
+                                     doctor.specialty.toLowerCase().includes(searchTerm);
+                const matchesSpecialty = !specialty || doctor.specialty === specialty;
+                return matchesSearch && matchesSpecialty;
+            });
+
+            // Sort doctors
+            if (sortBy === 'experience') {
+                filteredDoctors.sort((a, b) => b.experience - a.experience);
+            } else if (sortBy === 'name') {
+                filteredDoctors.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (sortBy === 'fee') {
+                filteredDoctors.sort((a, b) => a.fee - b.fee);
+            }
+
+            container.innerHTML = filteredDoctors.map(doctor => `
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body p-4 text-center">
+                            <img src="${doctor.image}" alt="${doctor.name}" class="rounded-circle mb-3" style="width: 120px; height: 120px; object-fit: cover; border: 4px solid var(--light-color);">
+                            <h5 class="card-title mb-1">${doctor.name}</h5>
+                            <p class="text-primary mb-2">${doctor.specialty}</p>
+                            <p class="text-muted small mb-3">${doctor.qualification} | ${doctor.experience} years exp</p>
+                            <div class="d-flex justify-content-center gap-1 mb-3">
+                                ${doctor.available.map(day => `<span class="badge bg-light text-dark">${day}</span>`).join('')}
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-muted">Consultation Fee</span>
+                                <span class="fw-bold text-primary">₹${doctor.fee}</span>
+                            </div>
+                            <button onclick="openAppointmentModal(${doctor.id})" class="btn btn-primary w-100">
+                                <i class="bi bi-calendar-plus me-2"></i>Book Appointment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            if (filteredDoctors.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <i class="bi bi-person-x display-1 text-muted"></i>
+                        <h4 class="mt-3">No doctors found</h4>
+                        <p class="text-muted">Try adjusting your search criteria</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Open appointment modal
+        function openAppointmentModal(doctorId) {
+            const doctors = JSON.parse(localStorage.getItem('doctorsData') || '[]');
+            selectedDoctor = doctors.find(d => d.id === doctorId);
+
+            if (selectedDoctor) {
+                document.getElementById('doctorInfo').innerHTML = `
+                    <img src="${selectedDoctor.image}" alt="${selectedDoctor.name}" class="rounded-circle mb-3" style="width: 80px; height: 80px; object-fit: cover;">
+                    <h5 class="mb-1">${selectedDoctor.name}</h5>
+                    <p class="text-primary mb-0">${selectedDoctor.specialty}</p>
+                    <p class="text-muted small">Fee: ₹${selectedDoctor.fee}</p>
+                `;
+
+                // Set minimum date to today
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('appointmentDate').min = today;
+
+                const modal = new bootstrap.Modal(document.getElementById('appointmentModal'));
+                modal.show();
+            }
+        }
+
+        // Handle appointment form submission
+        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            if (!TestMyBlood.isLoggedIn()) {
+                TestMyBlood.showToast('Please login to book an appointment', 'warning');
+                window.location.href = '../patient/login.html';
+                return;
+            }
+
+            const appointment = {
+                id: 'APT' + Date.now(),
+                doctorId: selectedDoctor.id,
+                doctorName: selectedDoctor.name,
+                specialty: selectedDoctor.specialty,
+                date: document.getElementById('appointmentDate').value,
+                time: document.getElementById('appointmentTime').value,
+                reason: document.getElementById('visitReason').value,
+                fee: selectedDoctor.fee,
+                status: 'confirmed',
+                userId: TestMyBlood.getCurrentUser().id,
+                createdAt: new Date().toISOString()
+            };
+
+            // Save appointment
+            const appointments = JSON.parse(localStorage.getItem('doctorAppointments') || '[]');
+            appointments.push(appointment);
+            localStorage.setItem('doctorAppointments', JSON.stringify(appointments));
+
+            // Close modal and show success
+            bootstrap.Modal.getInstance(document.getElementById('appointmentModal')).hide();
+            this.reset();
+            TestMyBlood.showToast('Appointment booked successfully!', 'success');
+        });
+
+        // Event listeners
+        document.getElementById('searchDoctors').addEventListener('input', loadDoctors);
+        document.getElementById('specialtyFilter').addEventListener('change', loadDoctors);
+        document.getElementById('sortDoctors').addEventListener('change', loadDoctors);
+
+        // Initial load
+        loadDoctors();
+    </script>
+</body>
+</html>

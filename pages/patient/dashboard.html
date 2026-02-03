@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - LAB CARE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h4><i class="bi bi-droplet-fill"></i> LAB<span>CARE</span></h4>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html" class="active"><i class="bi bi-grid-1x2"></i> Dashboard</a></li>
+                <li><a href="book-test.html"><i class="bi bi-plus-circle"></i> Book Test</a></li>
+                <li><a href="reports.html"><i class="bi bi-file-earmark-medical"></i> My Reports</a></li>
+                <li><a href="profile.html"><i class="bi bi-person"></i> Profile</a></li>
+                <li><a href="../public/tests.html"><i class="bi bi-list-ul"></i> Browse Tests</a></li>
+                <li><a href="../public/doctors.html"><i class="bi bi-person-badge"></i> Consult Doctor</a></li>
+                <li><a href="#" onclick="logout()"><i class="bi bi-box-arrow-left"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navbar -->
+            <div class="top-navbar">
+                <button class="btn btn-link d-lg-none" onclick="toggleSidebar()">
+                    <i class="bi bi-list fs-4"></i>
+                </button>
+                <div class="search-box d-none d-md-block">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="Search tests, reports...">
+                </div>
+                <div class="user-menu">
+                    <span class="notification">
+                        <i class="bi bi-bell"></i>
+                        <span class="badge bg-danger">3</span>
+                    </span>
+                    <div class="user-info dropdown">
+                        <div data-bs-toggle="dropdown">
+                            <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="User" id="userAvatar">
+                            <span id="userName">User</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="profile.html"><i class="bi bi-person me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="reports.html"><i class="bi bi-file-earmark me-2"></i>My Reports</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-left me-2"></i>Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Welcome Section -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h4>Welcome back, <span id="welcomeName">User</span>!</h4>
+                        <p class="text-muted">Here's an overview of your health activities</p>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-primary">
+                                <i class="bi bi-calendar-check"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalBookings">0</h3>
+                                <p>Total Bookings</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-success">
+                                <i class="bi bi-file-earmark-check"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="completedTests">0</h3>
+                                <p>Completed Tests</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-warning">
+                                <i class="bi bi-clock-history"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="pendingTests">0</h3>
+                                <p>Pending</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-info">
+                                <i class="bi bi-file-earmark-medical"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalReports">0</h3>
+                                <p>Reports Ready</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="row g-4 mb-4">
+                    <div class="col-12">
+                        <h5 class="mb-3">Quick Actions</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="book-test.html" class="card p-4 text-center text-decoration-none">
+                            <i class="bi bi-plus-circle text-primary display-4 mb-3"></i>
+                            <h6>Book New Test</h6>
+                            <p class="text-muted small mb-0">Schedule a blood test</p>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="reports.html" class="card p-4 text-center text-decoration-none">
+                            <i class="bi bi-file-earmark-medical text-success display-4 mb-3"></i>
+                            <h6>View Reports</h6>
+                            <p class="text-muted small mb-0">Access your test reports</p>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="../public/doctors.html" class="card p-4 text-center text-decoration-none">
+                            <i class="bi bi-person-badge text-info display-4 mb-3"></i>
+                            <h6>Consult Doctor</h6>
+                            <p class="text-muted small mb-0">Book a consultation</p>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Recent Bookings -->
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="data-table">
+                            <div class="table-header">
+                                <h5>Recent Bookings</h5>
+                                <a href="book-test.html" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-plus me-1"></i>New Booking
+                                </a>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Booking ID</th>
+                                            <th>Tests</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recentBookings">
+                                        <tr>
+                                            <td colspan="5" class="text-center py-4 text-muted">
+                                                No bookings yet. <a href="book-test.html">Book your first test</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Appointments -->
+                    <div class="col-lg-4 mt-4 mt-lg-0">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Upcoming Appointments</h5>
+                                <div id="upcomingAppointments">
+                                    <div class="text-center py-4 text-muted">
+                                        <i class="bi bi-calendar-x display-4 mb-2"></i>
+                                        <p class="mb-0">No upcoming appointments</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Health Tips -->
+                        <div class="card mt-4">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">Health Tips</h5>
+                                <div class="d-flex align-items-start mb-3">
+                                    <i class="bi bi-lightbulb text-warning me-3 fs-5"></i>
+                                    <p class="small text-muted mb-0">Fast for 8-12 hours before lipid profile and blood sugar tests for accurate results.</p>
+                                </div>
+                                <div class="d-flex align-items-start mb-3">
+                                    <i class="bi bi-droplet text-primary me-3 fs-5"></i>
+                                    <p class="small text-muted mb-0">Stay hydrated! Drink plenty of water before blood collection.</p>
+                                </div>
+                                <div class="d-flex align-items-start">
+                                    <i class="bi bi-clock text-success me-3 fs-5"></i>
+                                    <p class="small text-muted mb-0">Regular health checkups every 6 months can help detect issues early.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            if (!API.Auth.isLoggedIn()) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const user = API.Auth.getCurrentUser();
+            if (!user || user.user_type !== 'patient') {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Update UI with user info
+            document.getElementById('userName').textContent = user.name;
+            document.getElementById('welcomeName').textContent = user.name.split(' ')[0];
+
+            // Load dashboard data
+            loadDashboardData();
+        });
+
+        async function loadDashboardData() {
+            try {
+                const result = await API.Bookings.getMyBookings();
+                const bookings = result.success ? result.data : [];
+
+                // Update stats
+                document.getElementById('totalBookings').textContent = bookings.length;
+                document.getElementById('completedTests').textContent = bookings.filter(b => b.status === 'completed').length;
+                document.getElementById('pendingTests').textContent = bookings.filter(b => ['pending', 'confirmed', 'collected'].includes(b.status)).length;
+                document.getElementById('totalReports').textContent = bookings.filter(b => b.report_url || b.report_file).length;
+
+                // Load recent bookings (sorted by date, newest first)
+                const sortedBookings = [...bookings].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+                const tbody = document.getElementById('recentBookings');
+                if (sortedBookings.length > 0) {
+                    tbody.innerHTML = sortedBookings.slice(0, 5).map(booking => {
+                        const testNames = booking.tests?.map(t => t.test_name).join(', ') || 'Tests';
+                        const displayTests = testNames.length > 30 ? testNames.substring(0, 30) + '...' : testNames;
+
+                        return `
+                        <tr>
+                            <td><strong>${booking.booking_id}</strong></td>
+                            <td title="${testNames}">${displayTests}</td>
+                            <td>${new Date(booking.booking_date).toLocaleDateString('en-IN')}</td>
+                            <td><span class="status-badge ${booking.status}">${formatStatus(booking.status)}</span></td>
+                            <td>
+                                <a href="reports.html" class="btn btn-sm btn-outline-primary">View</a>
+                            </td>
+                        </tr>
+                    `}).join('');
+                }
+
+                // Load upcoming appointments
+                loadUpcomingAppointments(bookings);
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+            }
+        }
+
+        function formatStatus(status) {
+            const map = { pending: 'Pending', confirmed: 'Confirmed', collected: 'Collected', completed: 'Completed', cancelled: 'Cancelled' };
+            return map[status] || status;
+        }
+
+        function loadUpcomingAppointments(bookings) {
+            const upcoming = bookings.filter(b => {
+                const bookingDate = new Date(b.booking_date);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                return bookingDate >= today && ['pending', 'confirmed'].includes(b.status) && b.payment_status === 'paid';
+            }).slice(0, 3);
+
+            const container = document.getElementById('upcomingAppointments');
+            if (upcoming.length > 0) {
+                container.innerHTML = upcoming.map(booking => `
+                    <div class="d-flex align-items-center mb-3 p-2 bg-light rounded">
+                        <div class="me-3">
+                            <i class="bi bi-calendar-event text-primary fs-4"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <p class="mb-0 fw-bold">${booking.booking_id}</p>
+                            <small class="text-muted">${new Date(booking.booking_date).toLocaleDateString('en-IN')} - ${booking.time_slot}</small>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        }
+
+        function logout() {
+            API.Auth.logout();
+        }
+    </script>
+</body>
+</html>

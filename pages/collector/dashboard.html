@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collector Dashboard - Test My Blood</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h4><i class="bi bi-droplet-fill"></i> Test<span>MyBlood</span></h4>
+                <small class="text-white-50">Collector Panel</small>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html" class="active"><i class="bi bi-grid-1x2"></i> Dashboard</a></li>
+                <li><a href="#" onclick="showTab('assigned')"><i class="bi bi-list-task"></i> Assigned Collections</a></li>
+                <li><a href="#" onclick="showTab('completed')"><i class="bi bi-check-circle"></i> Completed</a></li>
+                <li><a href="#" onclick="showTab('profile')"><i class="bi bi-person"></i> My Profile</a></li>
+                <li><a href="#" onclick="TestMyBlood.logoutUser()"><i class="bi bi-box-arrow-left"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navbar -->
+            <div class="top-navbar">
+                <button class="btn btn-link d-lg-none" onclick="toggleSidebar()">
+                    <i class="bi bi-list fs-4"></i>
+                </button>
+                <h5 class="mb-0">Collector Dashboard</h5>
+                <div class="user-menu">
+                    <div class="user-info">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Collector">
+                        <span id="collectorName">Collector</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Stats Cards -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-warning">
+                                <i class="bi bi-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="pendingCount">0</h3>
+                                <p>Pending Today</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-info">
+                                <i class="bi bi-hourglass-split"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="confirmedCount">0</h3>
+                                <p>Confirmed</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-success">
+                                <i class="bi bi-check-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="collectedCount">0</h3>
+                                <p>Collected Today</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-primary">
+                                <i class="bi bi-graph-up"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalCollected">0</h3>
+                                <p>Total Collections</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Tab (Default) -->
+                <div id="dashboardTab">
+                    <!-- Today's Schedule -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4">
+                                <i class="bi bi-calendar-day text-primary me-2"></i>Today's Schedule
+                            </h5>
+                            <div id="todaySchedule">
+                                <!-- Will be loaded dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Assigned Collections Tab -->
+                <div id="assignedTab" style="display: none;">
+                    <div class="data-table">
+                        <div class="table-header">
+                            <h5>Assigned Collections</h5>
+                            <select class="form-select form-select-sm" style="width: auto;" id="statusFilter" onchange="loadAssignedCollections()">
+                                <option value="">All Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="confirmed">Confirmed</option>
+                            </select>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Booking ID</th>
+                                        <th>Patient</th>
+                                        <th>Address</th>
+                                        <th>Date & Time</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="assignedList">
+                                    <tr>
+                                        <td colspan="6" class="text-center py-4 text-muted">No assigned collections</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Completed Tab -->
+                <div id="completedTab" style="display: none;">
+                    <div class="data-table">
+                        <div class="table-header">
+                            <h5>Completed Collections</h5>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Booking ID</th>
+                                        <th>Patient</th>
+                                        <th>Tests</th>
+                                        <th>Collected At</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="completedList">
+                                    <tr>
+                                        <td colspan="5" class="text-center py-4 text-muted">No completed collections</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Tab -->
+                <div id="profileTab" style="display: none;">
+                    <div class="row">
+                        <div class="col-lg-4 mb-4">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Profile" class="rounded-circle mb-3" style="width: 120px; height: 120px; object-fit: cover; border: 4px solid var(--light-color);">
+                                    <h5 id="profileName">Collector Name</h5>
+                                    <p class="text-muted">Blood Sample Collector</p>
+                                    <span class="badge bg-success">Active</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-4">Profile Information</h5>
+                                    <form id="profileForm">
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Full Name</label>
+                                                <input type="text" class="form-control" id="fullName" disabled>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="email" disabled>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Phone</label>
+                                                <input type="tel" class="form-control" id="phone" disabled>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Assigned Area</label>
+                                                <input type="text" class="form-control" id="area" disabled>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Collection Details Modal -->
+    <div class="modal fade" id="collectionModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Collection Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="collectionDetails">
+                    <!-- Details will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="markCollectedBtn">
+                        <i class="bi bi-check-circle me-2"></i>Mark as Collected
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/main.js"></script>
+    <script>
+        // Check authentication
+        if (!TestMyBlood.isLoggedIn()) {
+            window.location.href = 'login.html';
+        }
+
+        const user = TestMyBlood.getCurrentUser();
+        if (user && user.userType !== 'collector') {
+            window.location.href = 'login.html';
+        }
+
+        let currentBookingId = null;
+
+        // Update UI with user info
+        if (user) {
+            document.getElementById('collectorName').textContent = user.name;
+            document.getElementById('profileName').textContent = user.name;
+            document.getElementById('fullName').value = user.name;
+            document.getElementById('email').value = user.email;
+            document.getElementById('phone').value = user.phone || '';
+            document.getElementById('area').value = user.area || 'Not Assigned';
+        }
+
+        // Show tab
+        function showTab(tab) {
+            // Hide all tabs
+            document.getElementById('dashboardTab').style.display = 'none';
+            document.getElementById('assignedTab').style.display = 'none';
+            document.getElementById('completedTab').style.display = 'none';
+            document.getElementById('profileTab').style.display = 'none';
+
+            // Show selected tab
+            document.getElementById(tab + 'Tab').style.display = 'block';
+
+            // Load data for the tab
+            if (tab === 'assigned') {
+                loadAssignedCollections();
+            } else if (tab === 'completed') {
+                loadCompletedCollections();
+            } else if (tab === 'dashboard') {
+                loadDashboard();
+            }
+
+            // Update active menu
+            document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
+        }
+
+        // Load dashboard
+        function loadDashboard() {
+            const bookings = TestMyBlood.getAssignedCollections(user.id);
+            const today = new Date().toISOString().split('T')[0];
+
+            // Filter today's bookings
+            const todayBookings = bookings.filter(b => b.date === today);
+            const pendingToday = todayBookings.filter(b => b.status === 'pending' || b.status === 'confirmed');
+            const collectedToday = todayBookings.filter(b => b.status === 'collected');
+
+            // Update stats
+            document.getElementById('pendingCount').textContent = pendingToday.length;
+            document.getElementById('confirmedCount').textContent = bookings.filter(b => b.status === 'confirmed').length;
+            document.getElementById('collectedCount').textContent = collectedToday.length;
+            document.getElementById('totalCollected').textContent = bookings.filter(b => b.status === 'collected' || b.status === 'completed').length;
+
+            // Today's schedule
+            const scheduleContainer = document.getElementById('todaySchedule');
+            if (pendingToday.length === 0) {
+                scheduleContainer.innerHTML = `
+                    <div class="text-center py-4 text-muted">
+                        <i class="bi bi-calendar-check display-4 mb-3 d-block"></i>
+                        <p>No collections scheduled for today</p>
+                    </div>
+                `;
+            } else {
+                scheduleContainer.innerHTML = pendingToday.map(booking => `
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-2">
+                                    <span class="badge bg-primary fs-6">${booking.time}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <h6 class="mb-1">${booking.patientName}</h6>
+                                    <small class="text-muted">${booking.id}</small>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-muted">
+                                        <i class="bi bi-geo-alt me-1"></i>
+                                        ${booking.address?.line1}, ${booking.address?.city}
+                                    </small>
+                                </div>
+                                <div class="col-md-2 text-end">
+                                    <button class="btn btn-sm btn-outline-primary" onclick="viewCollection('${booking.id}')">
+                                        <i class="bi bi-eye me-1"></i>View
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Load assigned collections
+        function loadAssignedCollections() {
+            const bookings = TestMyBlood.getAssignedCollections(user.id);
+            const statusFilter = document.getElementById('statusFilter')?.value || '';
+
+            let filteredBookings = bookings.filter(b =>
+                b.status !== 'collected' && b.status !== 'completed'
+            );
+
+            if (statusFilter) {
+                filteredBookings = filteredBookings.filter(b => b.status === statusFilter);
+            }
+
+            const tbody = document.getElementById('assignedList');
+            if (filteredBookings.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center py-4 text-muted">No assigned collections</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = filteredBookings.map(booking => `
+                <tr>
+                    <td><strong>${booking.id}</strong></td>
+                    <td>${booking.patientName}<br><small class="text-muted">${booking.phone}</small></td>
+                    <td><small>${booking.address?.line1}, ${booking.address?.city}</small></td>
+                    <td>${new Date(booking.date).toLocaleDateString()}<br><small class="text-muted">${booking.time}</small></td>
+                    <td><span class="status-badge ${booking.status}">${booking.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary me-1" onclick="viewCollection('${booking.id}')">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-success" onclick="markCollected('${booking.id}')">
+                            <i class="bi bi-check"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Load completed collections
+        function loadCompletedCollections() {
+            const bookings = TestMyBlood.getAssignedCollections(user.id);
+            const completedBookings = bookings.filter(b =>
+                b.status === 'collected' || b.status === 'completed'
+            );
+
+            const tbody = document.getElementById('completedList');
+            if (completedBookings.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center py-4 text-muted">No completed collections</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = completedBookings.map(booking => `
+                <tr>
+                    <td><strong>${booking.id}</strong></td>
+                    <td>${booking.patientName}</td>
+                    <td>${booking.tests?.map(t => t.name).join(', ').substring(0, 50)}...</td>
+                    <td>${booking.collectedAt ? new Date(booking.collectedAt).toLocaleString() : '-'}</td>
+                    <td><span class="status-badge ${booking.status}">${booking.status}</span></td>
+                </tr>
+            `).join('');
+        }
+
+        // View collection details
+        function viewCollection(bookingId) {
+            const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+            const booking = bookings.find(b => b.id === bookingId);
+
+            if (!booking) return;
+
+            currentBookingId = bookingId;
+
+            const details = document.getElementById('collectionDetails');
+            details.innerHTML = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-3">Patient Information</h6>
+                        <p><strong>Name:</strong> ${booking.patientName}</p>
+                        <p><strong>Phone:</strong> ${booking.phone}</p>
+                        <p><strong>Address:</strong><br>
+                            ${booking.address?.line1}<br>
+                            ${booking.address?.line2 ? booking.address.line2 + '<br>' : ''}
+                            ${booking.address?.city} - ${booking.address?.pincode}
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-3">Booking Information</h6>
+                        <p><strong>Booking ID:</strong> ${booking.id}</p>
+                        <p><strong>Date:</strong> ${new Date(booking.date).toLocaleDateString()}</p>
+                        <p><strong>Time:</strong> ${booking.time}</p>
+                        <p><strong>Status:</strong> <span class="status-badge ${booking.status}">${booking.status}</span></p>
+                    </div>
+                </div>
+                <hr>
+                <h6 class="text-muted mb-3">Tests to Collect</h6>
+                <ul class="list-group">
+                    ${booking.tests?.map(test => `
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            ${test.name}
+                            <span class="badge bg-light text-dark">${test.lab}</span>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+
+            const markBtn = document.getElementById('markCollectedBtn');
+            markBtn.style.display = (booking.status === 'collected' || booking.status === 'completed') ? 'none' : 'block';
+            markBtn.onclick = () => markCollected(bookingId);
+
+            const modal = new bootstrap.Modal(document.getElementById('collectionModal'));
+            modal.show();
+        }
+
+        // Mark as collected
+        function markCollected(bookingId) {
+            TestMyBlood.updateBookingStatus(bookingId, 'collected', user.id);
+            TestMyBlood.showToast('Sample marked as collected!', 'success');
+
+            // Close modal if open
+            const modal = bootstrap.Modal.getInstance(document.getElementById('collectionModal'));
+            if (modal) modal.hide();
+
+            // Reload data
+            loadDashboard();
+            loadAssignedCollections();
+        }
+
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        }
+
+        // Initial load
+        loadDashboard();
+    </script>
+</body>
+</html>

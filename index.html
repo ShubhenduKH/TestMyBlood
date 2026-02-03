@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAB CARE - Home | Book Blood Tests Online</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-droplet-fill"></i> LAB<span>CARE</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/public/tests.html">Blood Tests</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/public/labs.html">Labs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/public/doctors.html">Doctors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/public/about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/public/contact.html">Contact</a>
+                    </li>
+                </ul>
+                <div class="d-flex gap-2 align-items-center">
+                    <div class="navbar-location" onclick="TestMyBlood.showLocationModal()" title="Change Location">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span class="location-text">Select Location</span>
+                    </div>
+                    <a href="pages/patient/book-test.html" class="btn btn-outline-primary position-relative me-2" title="Cart">
+                        <i class="bi bi-cart3"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-count" style="display: none;">0</span>
+                    </a>
+                    <div class="nav-auth-buttons" id="navAuthButtons">
+                        <a href="pages/patient/login.html" class="btn btn-outline-primary">Login</a>
+                        <a href="pages/patient/signup.html" class="btn btn-primary">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="animate-fadeInUp">Book Your Blood Test From Home</h1>
+                    <p class="animate-fadeInUp">Get accurate blood tests at affordable prices. Book online, get samples collected from your doorstep, and receive reports digitally.</p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="pages/patient/signup.html" class="btn btn-light btn-lg">Book Now</a>
+                        <a href="pages/public/tests.html" class="btn btn-outline-light btn-lg">View Tests</a>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-4">
+                            <h3 class="fw-bold">500+</h3>
+                            <p class="mb-0">Tests Available</p>
+                        </div>
+                        <div class="col-4">
+                            <h3 class="fw-bold">50+</h3>
+                            <p class="mb-0">Partner Labs</p>
+                        </div>
+                        <div class="col-4">
+                            <h3 class="fw-bold">10K+</h3>
+                            <p class="mb-0">Happy Patients</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center mt-5 mt-lg-0">
+                    <img src="https://img.freepik.com/free-vector/blood-test-concept-illustration_114360-6210.jpg" alt="Blood Test" class="img-fluid rounded-xl" style="max-width: 500px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow-lg border-0 p-4" style="margin-top: -50px; position: relative; z-index: 10;">
+                        <form class="row g-3 align-items-end">
+                            <div class="col-md-5">
+                                <label class="form-label">Search Tests</label>
+                                <input type="text" class="form-control" placeholder="Search blood tests...">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Select Lab</label>
+                                <select class="form-select">
+                                    <option selected>All Labs</option>
+                                    <option>HealthCare Labs</option>
+                                    <option>DiagnoPlus</option>
+                                    <option>MedTest Center</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="bi bi-search me-2"></i>Search
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Simple steps to get your blood test done</p>
+                <div class="underline"></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card service-card h-100">
+                        <div class="card-icon">
+                            <i class="bi bi-search"></i>
+                        </div>
+                        <h5 class="card-title">Search Test</h5>
+                        <p class="text-muted">Browse through our wide range of blood tests and health packages.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card service-card h-100">
+                        <div class="card-icon">
+                            <i class="bi bi-calendar-check"></i>
+                        </div>
+                        <h5 class="card-title">Book Appointment</h5>
+                        <p class="text-muted">Select your preferred date, time, and location for sample collection.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card service-card h-100">
+                        <div class="card-icon">
+                            <i class="bi bi-house-door"></i>
+                        </div>
+                        <h5 class="card-title">Home Collection</h5>
+                        <p class="text-muted">Our trained phlebotomist will collect your sample from home.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card service-card h-100">
+                        <div class="card-icon">
+                            <i class="bi bi-file-earmark-medical"></i>
+                        </div>
+                        <h5 class="card-title">Get Reports</h5>
+                        <p class="text-muted">Receive accurate digital reports within 24-48 hours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Tests -->
+    <section class="section bg-white">
+        <div class="container">
+            <div class="section-title">
+                <h2>Popular Blood Tests</h2>
+                <p>Most booked tests by our patients</p>
+                <div class="underline"></div>
+            </div>
+            <div class="row g-4" id="popularTestsContainer">
+                <!-- Tests will be loaded dynamically -->
+            </div>
+            <div class="text-center mt-5">
+                <a href="pages/public/tests.html" class="btn btn-outline-primary btn-lg">View All Tests <i class="bi bi-arrow-right ms-2"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Labs -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Partner Labs</h2>
+                <p>Trusted diagnostic centers for accurate results</p>
+                <div class="underline"></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card lab-card">
+                        <img src="https://via.placeholder.com/80x80?text=Lab1" alt="HealthCare Labs" class="lab-logo">
+                        <div>
+                            <h5 class="card-title mb-1">HealthCare Labs</h5>
+                            <p class="text-muted small mb-2">NABL Accredited</p>
+                            <div class="rating">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                                <span class="text-muted ms-2">4.5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card lab-card">
+                        <img src="https://via.placeholder.com/80x80?text=Lab2" alt="DiagnoPlus" class="lab-logo">
+                        <div>
+                            <h5 class="card-title mb-1">DiagnoPlus</h5>
+                            <p class="text-muted small mb-2">ISO Certified</p>
+                            <div class="rating">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                                <span class="text-muted ms-2">4.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card lab-card">
+                        <img src="https://via.placeholder.com/80x80?text=Lab3" alt="MedTest Center" class="lab-logo">
+                        <div>
+                            <h5 class="card-title mb-1">MedTest Center</h5>
+                            <p class="text-muted small mb-2">NABL & CAP Accredited</p>
+                            <div class="rating">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <span class="text-muted ms-2">5.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="pages/public/labs.html" class="btn btn-outline-primary">View All Labs</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors Section -->
+    <section class="section bg-white">
+        <div class="container">
+            <div class="section-title">
+                <h2>Consult Our Doctors</h2>
+                <p>Expert medical professionals for your health needs</p>
+                <div class="underline"></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card doctor-card p-4">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Dr. Rajesh Kumar">
+                        <h5 class="card-title mb-1">Dr. Rajesh Kumar</h5>
+                        <p class="specialty mb-2">General Physician</p>
+                        <p class="text-muted small">MBBS, MD - 15 yrs exp</p>
+                        <a href="pages/public/doctors.html" class="btn btn-outline-primary btn-sm mt-2">Book Appointment</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card doctor-card p-4">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dr. Priya Sharma">
+                        <h5 class="card-title mb-1">Dr. Priya Sharma</h5>
+                        <p class="specialty mb-2">Pathologist</p>
+                        <p class="text-muted small">MBBS, MD Pathology - 10 yrs exp</p>
+                        <a href="pages/public/doctors.html" class="btn btn-outline-primary btn-sm mt-2">Book Appointment</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card doctor-card p-4">
+                        <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Dr. Amit Patel">
+                        <h5 class="card-title mb-1">Dr. Amit Patel</h5>
+                        <p class="specialty mb-2">Diabetologist</p>
+                        <p class="text-muted small">MBBS, DM - 12 yrs exp</p>
+                        <a href="pages/public/doctors.html" class="btn btn-outline-primary btn-sm mt-2">Book Appointment</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card doctor-card p-4">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Dr. Sneha Gupta">
+                        <h5 class="card-title mb-1">Dr. Sneha Gupta</h5>
+                        <p class="specialty mb-2">Cardiologist</p>
+                        <p class="text-muted small">MBBS, DM Cardio - 8 yrs exp</p>
+                        <a href="pages/public/doctors.html" class="btn btn-outline-primary btn-sm mt-2">Book Appointment</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="pages/public/doctors.html" class="btn btn-outline-primary">View All Doctors</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="section bg-gradient-secondary text-white">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="text-white">Why Choose LAB CARE?</h2>
+                <p class="text-white-50">We provide the best blood testing experience</p>
+                <div class="underline bg-white"></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3 text-center">
+                    <i class="bi bi-shield-check display-4 mb-3"></i>
+                    <h5>NABL Certified Labs</h5>
+                    <p class="text-white-50">All partner labs are NABL accredited for accurate results.</p>
+                </div>
+                <div class="col-md-6 col-lg-3 text-center">
+                    <i class="bi bi-cash-coin display-4 mb-3"></i>
+                    <h5>Best Prices</h5>
+                    <p class="text-white-50">Get up to 50% off on all blood tests and packages.</p>
+                </div>
+                <div class="col-md-6 col-lg-3 text-center">
+                    <i class="bi bi-house-heart display-4 mb-3"></i>
+                    <h5>Home Collection</h5>
+                    <p class="text-white-50">Free sample collection from your doorstep.</p>
+                </div>
+                <div class="col-md-6 col-lg-3 text-center">
+                    <i class="bi bi-clock-history display-4 mb-3"></i>
+                    <h5>Quick Reports</h5>
+                    <p class="text-white-50">Digital reports delivered within 24-48 hours.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Patients Say</h2>
+                <p>Trusted by thousands of happy patients</p>
+                <div class="underline"></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Patient" class="rounded-circle me-3" style="width: 60px; height: 60px;">
+                            <div>
+                                <h6 class="mb-1">Rahul Verma</h6>
+                                <div class="text-warning small">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-muted">"Excellent service! The phlebotomist was very professional and the reports were delivered on time. Highly recommended!"</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Patient" class="rounded-circle me-3" style="width: 60px; height: 60px;">
+                            <div>
+                                <h6 class="mb-1">Anita Singh</h6>
+                                <div class="text-warning small">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-muted">"Very convenient home collection service. The prices are much lower than other labs. Will definitely use again."</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/men/85.jpg" alt="Patient" class="rounded-circle me-3" style="width: 60px; height: 60px;">
+                            <div>
+                                <h6 class="mb-1">Vikram Joshi</h6>
+                                <div class="text-warning small">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-muted">"Booked a full body checkup for my parents. The entire process was smooth and the reports were detailed and accurate."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section bg-white">
+        <div class="container">
+            <div class="card bg-gradient-primary text-white p-5 text-center">
+                <h2 class="mb-3">Ready to Book Your Blood Test?</h2>
+                <p class="mb-4">Sign up now and get 20% off on your first booking!</p>
+                <div>
+                    <a href="pages/patient/signup.html" class="btn btn-light btn-lg me-3">Sign Up Free</a>
+                    <a href="pages/public/contact.html" class="btn btn-outline-light btn-lg">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h4 class="text-white mb-3">
+                        <i class="bi bi-droplet-fill text-danger"></i> LAB<span>CARE</span>
+                    </h4>
+                    <p class="text-white-50">Your trusted partner for all blood tests and health checkups. Book online, get samples collected from home, and receive accurate digital reports.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="pages/public/about.html">About Us</a></li>
+                        <li><a href="pages/public/tests.html">Blood Tests</a></li>
+                        <li><a href="pages/public/labs.html">Labs</a></li>
+                        <li><a href="pages/public/doctors.html">Doctors</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>For Patients</h5>
+                    <ul class="footer-links">
+                        <li><a href="pages/patient/signup.html">Sign Up</a></li>
+                        <li><a href="pages/patient/login.html">Login</a></li>
+                        <li><a href="pages/patient/book-test.html">Book Test</a></li>
+                        <li><a href="pages/patient/reports.html">View Reports</a></li>
+                        <li><a href="pages/public/contact.html">Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h5>Contact Us</h5>
+                    <div class="contact-info">
+                        <p><i class="bi bi-geo-alt-fill"></i> 123 Health Street, Medical City</p>
+                        <p><i class="bi bi-telephone-fill"></i> +91 98765 43210</p>
+                        <p><i class="bi bi-envelope-fill"></i> support@testmyblood.com</p>
+                        <p><i class="bi bi-clock-fill"></i> Mon-Sat: 7AM - 9PM</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 LAB CARE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- API JS -->
+    <script src="js/api.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+    <script>
+        let allTests = [];
+        let allLabs = [];
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Update cart count
+            Utils.updateCartCount();
+
+            // Load popular tests from API
+            await loadPopularTests();
+
+            // Update navbar based on login status
+            updateNavbarAuthState();
+
+            // Update location display
+            updateLocationDisplay();
+        });
+
+        async function loadPopularTests() {
+            const container = document.getElementById('popularTestsContainer');
+            if (!container) return;
+
+            // Show loading spinner
+            container.innerHTML = `
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-3">Loading tests...</p>
+                </div>
+            `;
+
+            try {
+                // Load tests and labs from API
+                const [testsResponse, labsResponse] = await Promise.all([
+                    API.Tests.getAll(),
+                    API.Labs.getAll()
+                ]);
+
+                if (testsResponse.success) {
+                    allTests = testsResponse.data;
+                }
+                if (labsResponse.success) {
+                    allLabs = labsResponse.data;
+                }
+
+                // Show first 6 tests
+                const popularTests = allTests.slice(0, 6);
+
+                if (popularTests.length === 0) {
+                    container.innerHTML = `
+                        <div class="col-12 text-center py-5">
+                            <i class="bi bi-inbox display-1 text-muted"></i>
+                            <h4 class="mt-3">No tests available</h4>
+                            <p class="text-muted">Please check back later</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = popularTests.map(test => renderTestCard(test)).join('');
+            } catch (error) {
+                console.error('Failed to load tests:', error);
+                container.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <i class="bi bi-exclamation-circle display-1 text-danger"></i>
+                        <h4 class="mt-3">Failed to load tests</h4>
+                        <p class="text-muted">Please check if the server is running</p>
+                    </div>
+                `;
+            }
+        }
+
+        function renderTestCard(test) {
+            const discount = test.original_price ? Math.round((1 - test.price / test.original_price) * 100) : 0;
+            const lab = allLabs.find(l => l.id === test.lab_id);
+
+            return `
+                <div class="col-md-6 col-lg-4">
+                    <div class="card test-card h-100 position-relative">
+                        ${discount > 0 ? `<span class="badge bg-danger" style="position: absolute; top: 15px; right: 15px;">${discount}% OFF</span>` : ''}
+                        <div class="card-body">
+                            <span class="badge bg-light text-dark mb-2">${test.category}</span>
+                            <h5 class="card-title">${test.name}</h5>
+                            <p class="text-muted small mb-3">${test.description || ''}</p>
+                            ${lab ? `<p class="small text-primary mb-2"><i class="bi bi-building me-1"></i>${lab.name}</p>` : ''}
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <span class="price text-primary fw-bold fs-5">₹${test.price}</span>
+                                ${test.original_price > test.price ? `<span class="text-muted text-decoration-line-through">₹${test.original_price}</span>` : ''}
+                            </div>
+                            <div class="d-flex gap-2 flex-wrap mb-3">
+                                <span class="badge bg-light text-dark"><i class="bi bi-clock me-1"></i>${test.report_time}</span>
+                                <span class="badge bg-light text-dark"><i class="bi bi-${test.fasting_required ? 'exclamation-circle text-warning' : 'check-circle text-success'} me-1"></i>${test.fasting_required ? 'Fasting Required' : 'No Fasting'}</span>
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="addTestToCart(${test.id})">
+                                <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function addTestToCart(testId) {
+            if (!API.Auth.isLoggedIn()) {
+                if (confirm('Please login to add tests to cart. Go to login page?')) {
+                    window.location.href = 'pages/patient/login.html';
+                }
+                return;
+            }
+
+            const test = allTests.find(t => t.id === testId);
+            if (!test) return;
+
+            Utils.addToCart(test);
+        }
+
+        function updateNavbarAuthState() {
+            const authButtons = document.getElementById('navAuthButtons');
+            if (!authButtons) return;
+
+            if (API.Auth.isLoggedIn()) {
+                const user = API.Auth.getCurrentUser();
+                authButtons.innerHTML = `
+                    <a href="pages/patient/dashboard.html" class="btn btn-outline-primary">
+                        <i class="bi bi-person-circle me-1"></i>${user.name || 'Dashboard'}
+                    </a>
+                    <button class="btn btn-primary" onclick="API.Auth.logout()">
+                        <i class="bi bi-box-arrow-right me-1"></i>Logout
+                    </button>
+                `;
+            }
+        }
+
+        function updateLocationDisplay() {
+            const locationEl = document.querySelector('.navbar-location .location-text');
+            if (!locationEl) return;
+
+            const location = TestMyBlood.getSelectedLocation();
+            if (location) {
+                if (location.type === 'location') {
+                    locationEl.textContent = `${location.data.area}, ${location.data.city}`;
+                } else if (location.type === 'lab') {
+                    locationEl.textContent = location.data.name;
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Spin animation for loading */
+        .spin {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</body>
+</html>

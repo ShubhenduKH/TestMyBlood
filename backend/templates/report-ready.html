@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Ready</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+        .header h1 { margin: 0; font-size: 28px; }
+        .content { background: #fff; padding: 30px; border: 1px solid #e0e0e0; }
+        .success-badge { background: #27ae60; color: white; padding: 10px 20px; border-radius: 5px; display: inline-block; font-weight: bold; margin-bottom: 20px; font-size: 18px; }
+        .booking-id { background: #f8f9fa; padding: 15px; border-radius: 5px; text-align: center; margin: 20px 0; }
+        .booking-id span { font-size: 24px; font-weight: bold; color: #e74c3c; }
+        .report-card { background: linear-gradient(135deg, #e8f6e8, #d4edda); border: 2px solid #27ae60; padding: 30px; border-radius: 15px; margin: 30px 0; text-align: center; }
+        .report-card .icon { font-size: 60px; margin-bottom: 15px; }
+        .report-card h2 { color: #27ae60; margin: 0 0 10px 0; }
+        .tests-summary { background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0; }
+        .tests-summary li { padding: 8px 0; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; }
+        .tests-summary li:last-child { border-bottom: none; }
+        .download-button { display: inline-block; background: #27ae60; color: white; padding: 15px 40px; text-decoration: none; border-radius: 5px; font-size: 18px; font-weight: bold; margin-top: 20px; }
+        .download-button:hover { background: #219a52; }
+        .note { background: #fff3cd; border: 1px solid #ffc107; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .footer { background: #f8f9fa; padding: 20px; text-align: center; border-radius: 0 0 10px 10px; border: 1px solid #e0e0e0; border-top: none; }
+        .footer p { margin: 5px 0; color: #666; font-size: 14px; }
+        .secondary-button { display: inline-block; background: #e74c3c; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; margin: 10px 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>LAB CARE</h1>
+            <p>Your Trusted Health Partner</p>
+        </div>
+        <div class="content">
+            <div class="success-badge">&#127881; Your Report is Ready!</div>
+
+            <p>Dear <strong>{{patientName}}</strong>,</p>
+            <p>Great news! Your test report is now ready for download. You can view and download your complete report from your dashboard.</p>
+
+            <div class="booking-id">
+                <p style="margin: 0 0 5px 0; color: #666;">Booking ID</p>
+                <span>{{bookingId}}</span>
+            </div>
+
+            <div class="report-card">
+                <div class="icon">&#128203;</div>
+                <h2>Report Generated</h2>
+                <p style="color: #666; margin: 0;">{{completedAt}}</p>
+                <a href="{{reportUrl}}" class="download-button">&#128229; Download Report</a>
+            </div>
+
+            <h3>Tests Completed</h3>
+            <ul class="tests-summary" style="list-style: none; padding: 20px; margin: 0;">
+                {{testsHtml}}
+            </ul>
+
+            {{#if reportNotes}}
+            <div class="note">
+                <strong>&#128221; Lab Notes:</strong>
+                <p style="margin: 10px 0 0 0;">{{reportNotes}}</p>
+            </div>
+            {{/if}}
+
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="{{dashboardUrl}}" class="secondary-button">View in Dashboard</a>
+                <a href="{{doctorsUrl}}" class="secondary-button">Consult a Doctor</a>
+            </div>
+
+            <div class="note" style="background: #e8f4fd; border-color: #3498db; margin-top: 30px;">
+                <strong>&#128161; Did you know?</strong>
+                <p style="margin: 10px 0 0 0;">You can consult with our expert doctors to understand your test results better. Book a consultation today!</p>
+            </div>
+        </div>
+        <div class="footer">
+            <p><strong>Need help understanding your report?</strong></p>
+            <p>Book a consultation with our doctors or call us at: +91 98765 43210</p>
+            <p>Email: support@labcare.com</p>
+            <p style="margin-top: 15px; font-size: 12px; color: #999;">
+                This report is confidential and intended for the patient only.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

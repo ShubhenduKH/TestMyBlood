@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Collected</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+        .header h1 { margin: 0; font-size: 28px; }
+        .content { background: #fff; padding: 30px; border: 1px solid #e0e0e0; }
+        .success-badge { background: #27ae60; color: white; padding: 10px 20px; border-radius: 5px; display: inline-block; font-weight: bold; margin-bottom: 20px; }
+        .booking-id { background: #f8f9fa; padding: 15px; border-radius: 5px; text-align: center; margin: 20px 0; }
+        .booking-id span { font-size: 24px; font-weight: bold; color: #e74c3c; }
+        .progress-bar { display: flex; justify-content: space-between; margin: 30px 0; position: relative; }
+        .progress-bar::before { content: ''; position: absolute; top: 15px; left: 0; right: 0; height: 4px; background: #e0e0e0; z-index: 1; }
+        .progress-step { text-align: center; position: relative; z-index: 2; flex: 1; }
+        .progress-step .circle { width: 30px; height: 30px; border-radius: 50%; background: #27ae60; color: white; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; }
+        .progress-step.pending .circle { background: #e0e0e0; color: #999; }
+        .progress-step .label { display: block; margin-top: 5px; font-size: 12px; color: #666; }
+        .timeline-info { background: #e8f6e8; border: 1px solid #27ae60; padding: 20px; border-radius: 10px; margin: 20px 0; text-align: center; }
+        .footer { background: #f8f9fa; padding: 20px; text-align: center; border-radius: 0 0 10px 10px; border: 1px solid #e0e0e0; border-top: none; }
+        .footer p { margin: 5px 0; color: #666; font-size: 14px; }
+        .button { display: inline-block; background: #e74c3c; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>LAB CARE</h1>
+            <p>Your Trusted Health Partner</p>
+        </div>
+        <div class="content">
+            <div class="success-badge">&#128300; Sample Collected</div>
+
+            <p>Dear <strong>{{patientName}}</strong>,</p>
+            <p>Your blood sample has been successfully collected and is on its way to the laboratory for testing.</p>
+
+            <div class="booking-id">
+                <p style="margin: 0 0 5px 0; color: #666;">Booking ID</p>
+                <span>{{bookingId}}</span>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-step">
+                    <span class="circle">&#10004;</span>
+                    <span class="label">Booked</span>
+                </div>
+                <div class="progress-step">
+                    <span class="circle">&#10004;</span>
+                    <span class="label">Confirmed</span>
+                </div>
+                <div class="progress-step">
+                    <span class="circle">&#10004;</span>
+                    <span class="label">Collected</span>
+                </div>
+                <div class="progress-step pending">
+                    <span class="circle">4</span>
+                    <span class="label">Report Ready</span>
+                </div>
+            </div>
+
+            <div class="timeline-info">
+                <h3 style="color: #27ae60; margin-top: 0;">&#128337; Report Expected</h3>
+                <p style="font-size: 18px; margin: 0;">Within <strong>24-48 hours</strong></p>
+                <p style="color: #666; margin: 10px 0 0 0;">You will receive an email notification when your report is ready.</p>
+            </div>
+
+            <p>Collected on: <strong>{{collectedAt}}</strong></p>
+
+            <p style="text-align: center;">
+                <a href="{{dashboardUrl}}" class="button">Track Your Report</a>
+            </p>
+        </div>
+        <div class="footer">
+            <p><strong>Questions about your tests?</strong></p>
+            <p>Call us at: +91 98765 43210</p>
+            <p>Email: support@labcare.com</p>
+        </div>
+    </div>
+</body>
+</html>
