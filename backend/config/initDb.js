@@ -8,8 +8,13 @@ const initDatabase = async () => {
     try {
         // Connect to MySQL - support MYSQL_URL (Railway) or individual vars (local)
         if (process.env.MYSQL_URL) {
+            const url = new URL(process.env.MYSQL_URL);
             connection = await mysql.createConnection({
-                uri: process.env.MYSQL_URL,
+                host: url.hostname,
+                port: parseInt(url.port),
+                user: url.username,
+                password: url.password,
+                database: url.pathname.slice(1),
                 multipleStatements: true
             });
             console.log('Connected to Railway MySQL');
