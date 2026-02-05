@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 // Static files (for uploaded reports)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// API Routes
+// API Routes (defined before static files so they take priority)
 app.use('/api/auth', authRoutes);
 app.use('/api/tests', testRoutes);
 app.use('/api/labs', labRoutes);
@@ -130,12 +130,18 @@ app.get('/api', (req, res) => {
     });
 });
 
-// 404 handler
-app.use((req, res) => {
-    res.status(404).json({
-        success: false,
-        message: 'Route not found'
-    });
+// Serve frontend static files (after API routes)
+app.use(express.static(path.join(__dirname, '..')));
+
+// Serve index.html for frontend routes
+app.get('*', (req, res) => {
+    if (req.path.startsWith('/api')) {
+        return res.status(404).json({
+            success: false,
+            message: 'API route not found'
+        });
+    }
+    res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
 // Error handler
@@ -151,26 +157,30 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
-    // Test database connection
-    const dbConnected = await testConnection();
-
-    if (!dbConnected) {
-        console.error('Failed to connect to database. Please check your MySQL configuration.');
-        console.log('\nTo initialize the database, run: node config/initDb.js');
-        process.exit(1);
-    }
-
-    app.listen(PORT, () => {
+    // Start server first so Railway healthcheck passes
+    app.listen(PORT, '0.0.0.0', () => {
         console.log(`
 ========================================
    Test My Blood API Server
 ========================================
    Server running on port ${PORT}
    Environment: ${process.env.NODE_ENV || 'development'}
-   API URL: http://localhost:${PORT}/api
 ========================================
         `);
     });
+
+    // Test database connection with retries
+    let dbConnected = false;
+    for (let i = 1; i <= 5; i++) {
+        dbConnected = await testConnection();
+        if (dbConnected) break;
+        console.log(`Database connection attempt ${i}/5 failed. Retrying in 3s...`);
+        await new Promise(resolve => setTimeout(resolve, 3000));
+    }
+
+    if (!dbConnected) {
+        console.error('Database connection failed. API routes will return errors.');
+    }
 };
 
 startServer();

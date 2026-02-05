@@ -1,12 +1,20 @@
 // ========================================
-// Razorpay Configuration
+// Razorpay Configuration (Optional)
 // ========================================
 
 const Razorpay = require('razorpay');
 
-const razorpay = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_KEY_SECRET
-});
+let razorpay = null;
+
+// Only initialize if keys are provided
+if (process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET) {
+    razorpay = new Razorpay({
+        key_id: process.env.RAZORPAY_KEY_ID,
+        key_secret: process.env.RAZORPAY_KEY_SECRET
+    });
+    console.log('Razorpay initialized successfully');
+} else {
+    console.log('Razorpay keys not configured - payment features disabled');
+}
 
 module.exports = razorpay;

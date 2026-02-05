@@ -2,7 +2,9 @@
 // Test My Blood - API Client
 // ========================================
 
-const API_BASE_URL = 'http://localhost:5001/api';
+const API_BASE_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:5001/api'
+    : `${window.location.origin}/api`;
 
 // ========================================
 // API Helper Functions
