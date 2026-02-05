@@ -7,7 +7,12 @@ let pool;
 
 if (process.env.MYSQL_URL) {
     // Railway MySQL - use connection URL
-    pool = mysql.createPool(process.env.MYSQL_URL);
+    pool = mysql.createPool({
+        uri: process.env.MYSQL_URL,
+        waitForConnections: true,
+        connectionLimit: 10,
+        queueLimit: 0
+    });
     console.log('Using MYSQL_URL for database connection');
 } else {
     // Local MySQL - use individual variables
