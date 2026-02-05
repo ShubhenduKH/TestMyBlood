@@ -29,13 +29,13 @@ exports.register = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Insert user
-        const result = await query(
+        await query(
             'INSERT INTO users (name, email, password, phone, user_type) VALUES (?, ?, ?, ?, ?)',
             [name, email, hashedPassword, phone, user_type]
         );
 
-        // Get created user
-        const users = await query('SELECT id, name, email, phone, user_type, created_at FROM users WHERE id = ?', [result.insertId]);
+        // Get created user by email (more reliable than insertId)
+        const users = await query('SELECT id, name, email, phone, user_type, created_at FROM users WHERE email = ?', [email]);
         const user = users[0];
 
         // Generate token
