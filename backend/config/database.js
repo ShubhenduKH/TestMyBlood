@@ -1,18 +1,28 @@
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 
-// Create connection pool with SSL support for external databases
-const pool = mysql.createPool({
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'testmyblood',
-    port: parseInt(process.env.DB_PORT) || 3306,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0,
-    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-});
+// Create connection pool
+// Supports MYSQL_URL (Railway) or individual env vars (local)
+let pool;
+
+if (process.env.MYSQL_URL) {
+    // Railway MySQL - use connection URL
+    pool = mysql.createPool(process.env.MYSQL_URL);
+    console.log('Using MYSQL_URL for database connection');
+} else {
+    // Local MySQL - use individual variables
+    pool = mysql.createPool({
+        host: process.env.DB_HOST || 'localhost',
+        user: process.env.DB_USER || 'root',
+        password: process.env.DB_PASSWORD || '',
+        database: process.env.DB_NAME || 'testmyblood',
+        port: parseInt(process.env.DB_PORT) || 3306,
+        waitForConnections: true,
+        connectionLimit: 10,
+        queueLimit: 0
+    });
+    console.log('Using local database connection');
+}
 
 // Test connection
 const testConnection = async () => {

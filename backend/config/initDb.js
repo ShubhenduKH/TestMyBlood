@@ -6,23 +6,27 @@ const initDatabase = async () => {
     let connection;
 
     try {
-        // Connect without database first
-        connection = await mysql.createConnection({
-            host: process.env.DB_HOST || 'localhost',
-            user: process.env.DB_USER || 'root',
-            password: process.env.DB_PASSWORD || '',
-            port: process.env.DB_PORT || 3306,
-            multipleStatements: true
-        });
+        // Connect to MySQL - support MYSQL_URL (Railway) or individual vars (local)
+        if (process.env.MYSQL_URL) {
+            connection = await mysql.createConnection({
+                uri: process.env.MYSQL_URL,
+                multipleStatements: true
+            });
+            console.log('Connected to Railway MySQL');
+        } else {
+            connection = await mysql.createConnection({
+                host: process.env.DB_HOST || 'localhost',
+                user: process.env.DB_USER || 'root',
+                password: process.env.DB_PASSWORD || '',
+                port: parseInt(process.env.DB_PORT) || 3306,
+                multipleStatements: true
+            });
+            console.log('Connected to local MySQL');
 
-        console.log('Connected to MySQL server');
-
-        // Create database
-        await connection.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME || 'testmyblood'}`);
-        console.log('Database created/verified');
-
-        // Use database
-        await connection.query(`USE ${process.env.DB_NAME || 'testmyblood'}`);
+            // Create database if not exists (for local MySQL only)
+            await connection.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME || 'testmyblood'}`);
+            await connection.query(`USE ${process.env.DB_NAME || 'testmyblood'}`);
+        }
 
         // Create tables
         const createTables = `
