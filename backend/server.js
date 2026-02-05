@@ -4,6 +4,7 @@ const path = require('path');
 require('dotenv').config();
 
 const { testConnection } = require('./config/database');
+const initDatabase = require('./config/initDb');
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -180,6 +181,15 @@ const startServer = async () => {
 
     if (!dbConnected) {
         console.error('Database connection failed. API routes will return errors.');
+    } else {
+        // Auto-initialize database tables on startup
+        console.log('Initializing database tables...');
+        try {
+            await initDatabase();
+            console.log('Database initialized successfully!');
+        } catch (err) {
+            console.error('Database initialization error:', err.message);
+        }
     }
 };
 
