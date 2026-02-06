@@ -232,7 +232,7 @@ const initDatabase = async () => {
         // Insert sample doctors
         await connection.query(`
             INSERT IGNORE INTO doctors (name, specialty, qualification, experience, fee, image, available_days) VALUES
-            ('Dr. Kashak Mohan(Kallu)', 'General Physician', 'MBBS, MD', 15, 500, 'https://randomuser.me/api/portraits/men/32.jpg', 'Mon,Wed,Fri'),
+            ('Dr. Kashak Mohan', 'General Physician', 'MBBS, MD', 15, 500, 'images/Gemini_Generated_Image_7k3prk7k3prk7k3p.png', 'Mon,Wed,Fri'),
             ('Dr. Priya Sharma', 'Pathologist', 'MBBS, MD Pathology', 10, 400, 'https://randomuser.me/api/portraits/women/44.jpg', 'Tue,Thu,Sat'),
             ('Dr. Amit Patel', 'Diabetologist', 'MBBS, DM', 12, 600, 'https://randomuser.me/api/portraits/men/52.jpg', 'Mon,Tue,Wed'),
             ('Dr. Sneha Gupta', 'Cardiologist', 'MBBS, DM Cardiology', 8, 800, 'https://randomuser.me/api/portraits/women/68.jpg', 'Thu,Fri,Sat'),
