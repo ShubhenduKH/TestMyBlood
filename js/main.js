@@ -146,7 +146,7 @@ const testLabPricing = {
 };
 
 const doctorsData = [
-    { id: 1, name: "Dr. Rajesh Kumar", specialty: "General Physician", qualification: "MBBS, MD", experience: 15, image: "https://randomuser.me/api/portraits/men/32.jpg", fee: 500, available: ["Mon", "Wed", "Fri"] },
+    { id: 1, name: "Dr. Kashak Mohan(Kallu)", specialty: "General Physician", qualification: "MBBS, MD", experience: 15, image: "https://randomuser.me/api/portraits/men/32.jpg", fee: 500, available: ["Mon", "Wed", "Fri"] },
     { id: 2, name: "Dr. Priya Sharma", specialty: "Pathologist", qualification: "MBBS, MD Pathology", experience: 10, image: "https://randomuser.me/api/portraits/women/44.jpg", fee: 400, available: ["Tue", "Thu", "Sat"] },
     { id: 3, name: "Dr. Amit Patel", specialty: "Diabetologist", qualification: "MBBS, DM", experience: 12, image: "https://randomuser.me/api/portraits/men/52.jpg", fee: 600, available: ["Mon", "Tue", "Wed"] },
     { id: 4, name: "Dr. Sneha Gupta", specialty: "Cardiologist", qualification: "MBBS, DM Cardiology", experience: 8, image: "https://randomuser.me/api/portraits/women/68.jpg", fee: 800, available: ["Thu", "Fri", "Sat"] },

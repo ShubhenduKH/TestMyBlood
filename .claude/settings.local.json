@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"\nconst mysql = require\\(''mysql2/promise''\\);\n\\(async \\(\\) => {\n    const conn = await mysql.createConnection\\({\n        host: ''shuttle.proxy.rlwy.net'',\n        port: 20740,\n        user: ''root'',\n        password: ''SZSoabFOCWZMUWOBjlWphfoAGtyblGYR'',\n        database: ''railway''\n    }\\);\n    const [users] = await conn.execute\\(''SELECT id, name, email, phone, user_type, created_at FROM users''\\);\n    console.log\\(''=== ALL USERS IN RAILWAY MYSQL ===''\\);\n    console.table\\(users\\);\n    await conn.end\\(\\);\n}\\)\\(\\);\n\")"
+    ]
+  }
+}
