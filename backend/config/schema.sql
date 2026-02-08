@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS tests (
 -- ========================================
 CREATE TABLE IF NOT EXISTS doctors (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL UNIQUE,
     specialty VARCHAR(100),
     qualification VARCHAR(150),
     experience INT DEFAULT 0,

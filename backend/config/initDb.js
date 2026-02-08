@@ -95,7 +95,7 @@ const initDatabase = async () => {
             -- Doctors Table
             CREATE TABLE IF NOT EXISTS doctors (
                 id INT PRIMARY KEY AUTO_INCREMENT,
-                name VARCHAR(100) NOT NULL,
+                name VARCHAR(100) NOT NULL UNIQUE,
                 specialty VARCHAR(100),
                 qualification VARCHAR(150),
                 experience INT DEFAULT 0,
@@ -180,6 +180,20 @@ const initDatabase = async () => {
 
         await connection.query(createTables);
         console.log('Tables created successfully');
+
+        // Add unique constraint on doctors.name if not already present (fixes duplicate doctors on restart)
+        try {
+            await connection.query(`ALTER TABLE doctors ADD UNIQUE INDEX idx_doctors_name (name)`);
+        } catch (e) {
+            // Ignore error if index already exists (ER_DUP_KEYNAME)
+        }
+
+        // Remove duplicate doctors (keep the one with the lowest id for each name)
+        await connection.query(`
+            DELETE d1 FROM doctors d1
+            INNER JOIN doctors d2
+            WHERE d1.id > d2.id AND d1.name = d2.name
+        `);
 
         // Hash passwords
         const adminPassword = await bcrypt.hash('admin123', 10);
