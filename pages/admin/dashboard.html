@@ -25,7 +25,7 @@
                 <li><a href="#" onclick="showTab('collectors')" id="collectorsLink"><i class="bi bi-people"></i> Collectors</a></li>
                 <li><a href="#" onclick="showTab('reports')" id="reportsLink"><i class="bi bi-file-earmark-medical"></i> Upload Reports</a></li>
                 <li><a href="#" onclick="showTab('users')" id="usersLink"><i class="bi bi-person-lines-fill"></i> Users</a></li>
-                <li><a href="#" onclick="TestMyBlood.logoutUser()"><i class="bi bi-box-arrow-left"></i> Logout</a></li>
+                <li><a href="#" onclick="API.Auth.logout()"><i class="bi bi-box-arrow-left"></i> Logout</a></li>
             </ul>
         </aside>
 
@@ -450,12 +450,12 @@
     <script src="../../js/main.js"></script>
     <script>
         // Check authentication
-        if (!TestMyBlood.isLoggedIn()) {
+        if (!API.Auth.isLoggedIn()) {
             window.location.href = 'login.html';
         }
 
-        const user = TestMyBlood.getCurrentUser();
-        if (user && user.userType !== 'admin') {
+        const user = API.Auth.getCurrentUser();
+        if (!user || user.user_type !== 'admin') {
             window.location.href = 'login.html';
         }
 
