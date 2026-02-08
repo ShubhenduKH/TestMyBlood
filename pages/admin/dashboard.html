@@ -646,9 +646,9 @@
 
         // Load tests
         async function loadTests() {
+            const tbody = document.getElementById('testsTable');
             try {
                 const response = await API.Tests.getAll();
-                const tbody = document.getElementById('testsTable');
 
                 if (!response.success || !response.data || response.data.length === 0) {
                     tbody.innerHTML = '<tr><td colspan="7" class="text-center py-3 text-muted">No tests found</td></tr>';
@@ -675,14 +675,15 @@
                 `).join('');
             } catch (error) {
                 console.error('Failed to load tests:', error);
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center py-3 text-danger">Failed to load tests. Check server connection.</td></tr>';
             }
         }
 
         // Load labs
         async function loadLabs() {
+            const tbody = document.getElementById('labsTable');
             try {
                 const response = await API.Labs.getAll();
-                const tbody = document.getElementById('labsTable');
 
                 if (!response.success || !response.data || response.data.length === 0) {
                     tbody.innerHTML = '<tr><td colspan="7" class="text-center py-3 text-muted">No labs found</td></tr>';
@@ -695,7 +696,7 @@
                         <td>${l.name}</td>
                         <td>${l.accreditation || '-'}</td>
                         <td>${l.rating || '-'}</td>
-                        <td>${l.total_tests || 0}</td>
+                        <td>${l.tests_count || 0}</td>
                         <td><small>${l.address || '-'}</small></td>
                         <td>
                             <button class="btn btn-sm btn-outline-primary me-1" onclick="editLab(${l.id})">
@@ -709,6 +710,7 @@
                 `).join('');
             } catch (error) {
                 console.error('Failed to load labs:', error);
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center py-3 text-danger">Failed to load labs. Check server connection.</td></tr>';
             }
         }
 
@@ -730,7 +732,7 @@
                         <td>${d.specialty}</td>
                         <td>${d.qualification || '-'}</td>
                         <td>${d.experience || 0} yrs</td>
-                        <td>₹${d.consultation_fee || 0}</td>
+                        <td>₹${d.fee || 0}</td>
                         <td>
                             <button class="btn btn-sm btn-outline-primary me-1" onclick="editDoctor(${d.id})">
                                 <i class="bi bi-pencil"></i>
@@ -1018,7 +1020,7 @@
                         if (labsResponse.success && labsResponse.data) {
                             const labSelect = document.getElementById('testLab');
                             if (labSelect) {
-                                labSelect.innerHTML = labsResponse.data.map(l => `<option value="${l.name}">${l.name}</option>`).join('');
+                                labSelect.innerHTML = labsResponse.data.map(l => `<option value="${l.id}">${l.name}</option>`).join('');
                             }
                         }
                     } catch (err) {
@@ -1037,7 +1039,7 @@
                     price: parseInt(document.getElementById('testPrice').value),
                     original_price: parseInt(document.getElementById('testOriginalPrice').value),
                     category: document.getElementById('testCategory').value,
-                    lab_name: document.getElementById('testLab').value,
+                    lab_id: parseInt(document.getElementById('testLab').value),
                     report_time: document.getElementById('testReportTime').value || '24 hrs',
                     fasting_required: document.getElementById('testFasting').value === 'true'
                 };
@@ -1062,7 +1064,7 @@
                     rating: parseFloat(document.getElementById('labRating').value) || 4.0,
                     address: document.getElementById('labAddress').value,
                     phone: document.getElementById('labPhone').value,
-                    total_tests: parseInt(document.getElementById('labTests').value) || 100
+                    tests_count: parseInt(document.getElementById('labTests').value) || 100
                 };
                 const response = await API.Labs.create(lab);
                 if (response.success) {
@@ -1084,7 +1086,7 @@
                     specialty: document.getElementById('doctorSpecialty').value,
                     qualification: document.getElementById('doctorQualification').value,
                     experience: parseInt(document.getElementById('doctorExperience').value) || 5,
-                    consultation_fee: parseInt(document.getElementById('doctorFee').value) || 500
+                    fee: parseInt(document.getElementById('doctorFee').value) || 500
                 };
                 const response = await API.Doctors.create(doctor);
                 if (response.success) {
