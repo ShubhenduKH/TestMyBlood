@@ -422,7 +422,7 @@
                 Utils.showToast('Preparing download...', 'info');
 
                 // Open the download URL in a new window/tab
-                const downloadUrl = `http://localhost:5001/api/bookings/${bookingId}/download`;
+                const downloadUrl = `${API_BASE_URL}/bookings/${bookingId}/download`;
 
                 // Create a temporary link and trigger download
                 const token = localStorage.getItem('token');
