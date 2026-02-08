@@ -39,6 +39,7 @@ body {
     line-height: 1.6;
     color: var(--gray-700);
     background-color: var(--gray-100);
+    overflow-x: hidden;
 }
 
 a {
@@ -89,10 +90,15 @@ img {
     padding: 10px 25px;
     border-radius: 25px;
     font-weight: 600;
+    white-space: nowrap;
 }
 
 .navbar .btn-primary:hover {
     background: var(--primary-dark);
+}
+
+.navbar .btn-outline-primary {
+    white-space: nowrap;
 }
 
 /* ========================================
@@ -1250,6 +1256,18 @@ img {
 
     .nav-auth-buttons {
         flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .nav-auth-buttons .btn {
+        flex: 1;
+        text-align: center;
+    }
+
+    .navbar .d-flex.gap-2 {
+        flex-direction: column;
+        width: 100%;
+        padding: 10px 0;
     }
 }
 
