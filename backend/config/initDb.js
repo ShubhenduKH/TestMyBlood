@@ -188,11 +188,25 @@ const initDatabase = async () => {
             // Ignore error if index already exists (ER_DUP_KEYNAME)
         }
 
+        // Add unique constraint on labs.name if not already present (fixes duplicate labs on restart)
+        try {
+            await connection.query(`ALTER TABLE labs ADD UNIQUE INDEX idx_labs_name (name)`);
+        } catch (e) {
+            // Ignore error if index already exists (ER_DUP_KEYNAME)
+        }
+
         // Remove duplicate doctors (keep the one with the lowest id for each name)
         await connection.query(`
             DELETE d1 FROM doctors d1
             INNER JOIN doctors d2
             WHERE d1.id > d2.id AND d1.name = d2.name
+        `);
+
+        // Remove duplicate labs (keep the one with the lowest id for each name)
+        await connection.query(`
+            DELETE l1 FROM labs l1
+            INNER JOIN labs l2
+            WHERE l1.id > l2.id AND l1.name = l2.name
         `);
 
         // Hash passwords
