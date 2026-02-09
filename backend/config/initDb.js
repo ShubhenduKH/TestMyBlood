@@ -181,33 +181,43 @@ const initDatabase = async () => {
         await connection.query(createTables);
         console.log('Tables created successfully');
 
-        // Add unique constraint on doctors.name if not already present (fixes duplicate doctors on restart)
-        try {
-            await connection.query(`ALTER TABLE doctors ADD UNIQUE INDEX idx_doctors_name (name)`);
-        } catch (e) {
-            // Ignore error if index already exists (ER_DUP_KEYNAME)
-        }
-
-        // Add unique constraint on labs.name if not already present (fixes duplicate labs on restart)
-        try {
-            await connection.query(`ALTER TABLE labs ADD UNIQUE INDEX idx_labs_name (name)`);
-        } catch (e) {
-            // Ignore error if index already exists (ER_DUP_KEYNAME)
-        }
-
-        // Remove duplicate doctors (keep the one with the lowest id for each name)
+        // Remove duplicate doctors first (keep the one with the lowest id for each name)
         await connection.query(`
             DELETE d1 FROM doctors d1
             INNER JOIN doctors d2
             WHERE d1.id > d2.id AND d1.name = d2.name
         `);
 
-        // Remove duplicate labs (keep the one with the lowest id for each name)
+        // Remove duplicate labs first (keep the one with the lowest id for each name)
         await connection.query(`
             DELETE l1 FROM labs l1
             INNER JOIN labs l2
             WHERE l1.id > l2.id AND l1.name = l2.name
         `);
+
+        // Remove duplicate tests (keep the one with the lowest id for each name)
+        await connection.query(`
+            DELETE t1 FROM tests t1
+            INNER JOIN tests t2
+            WHERE t1.id > t2.id AND t1.name = t2.name
+        `);
+
+        // Add unique constraints after duplicates are removed
+        try {
+            await connection.query(`ALTER TABLE doctors ADD UNIQUE INDEX idx_doctors_name (name)`);
+        } catch (e) {
+            // Ignore if index already exists
+        }
+        try {
+            await connection.query(`ALTER TABLE labs ADD UNIQUE INDEX idx_labs_name (name)`);
+        } catch (e) {
+            // Ignore if index already exists
+        }
+        try {
+            await connection.query(`ALTER TABLE tests ADD UNIQUE INDEX idx_tests_name (name)`);
+        } catch (e) {
+            // Ignore if index already exists
+        }
 
         // Hash passwords
         const adminPassword = await bcrypt.hash('admin123', 10);
