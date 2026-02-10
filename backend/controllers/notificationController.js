@@ -109,7 +109,7 @@ async function sendBookingConfirmation(user, booking) {
         };
 
         const html = replacePlaceholders(template, data);
-        const subject = `Booking Confirmed - ${booking.booking_id} | LAB CARE`;
+        const subject = `Booking Confirmed - ${booking.booking_id} | DoorToTest`;
 
         const result = await sendEmail({
             to: user.email,
@@ -160,7 +160,7 @@ async function sendCollectorAssigned(user, booking, collector) {
         };
 
         const html = replacePlaceholders(template, data);
-        const subject = `Phlebotomist Assigned - ${booking.booking_id} | LAB CARE`;
+        const subject = `Phlebotomist Assigned - ${booking.booking_id} | DoorToTest`;
 
         const result = await sendEmail({
             to: user.email,
@@ -200,7 +200,7 @@ async function sendSampleCollected(user, booking) {
         };
 
         const html = replacePlaceholders(template, data);
-        const subject = `Sample Collected - ${booking.booking_id} | LAB CARE`;
+        const subject = `Sample Collected - ${booking.booking_id} | DoorToTest`;
 
         const result = await sendEmail({
             to: user.email,
@@ -259,7 +259,7 @@ async function sendReportReady(user, booking) {
             html = html.replace(/{{#if reportNotes}}([\s\S]*?){{\/if}}/g, '$1');
         }
 
-        const subject = `Your Report is Ready - ${booking.booking_id} | LAB CARE`;
+        const subject = `Your Report is Ready - ${booking.booking_id} | DoorToTest`;
 
         const result = await sendEmail({
             to: user.email,

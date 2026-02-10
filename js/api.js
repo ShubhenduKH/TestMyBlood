@@ -421,7 +421,7 @@ async function initiatePayment(bookingId, amount, userDetails, onSuccess, onErro
             key: key,
             amount: orderResponse.data.amount,
             currency: orderResponse.data.currency || 'INR',
-            name: 'LAB CARE',
+            name: 'DoorToTest',
             description: `Blood Test Booking - ${bookingId}`,
             order_id: order_id,
             prefill: {

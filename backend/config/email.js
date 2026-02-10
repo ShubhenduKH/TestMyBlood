@@ -31,7 +31,7 @@ const verifyConnection = async () => {
 const sendEmail = async ({ to, subject, html, text }) => {
     try {
         const mailOptions = {
-            from: `"LAB CARE" <${process.env.SMTP_USER}>`,
+            from: `"DoorToTest" <${process.env.SMTP_USER}>`,
             to,
             subject,
             html,
