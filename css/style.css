@@ -59,13 +59,23 @@ img {
 .navbar {
     background: var(--white) !important;
     box-shadow: var(--shadow);
-    padding: 15px 0;
+    padding: 8px 0;
 }
 
 .navbar-brand {
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: var(--primary-color) !important;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+.navbar-brand img {
+    flex-shrink: 0;
 }
 
 .navbar-brand span {
@@ -75,7 +85,7 @@ img {
 .nav-link {
     color: var(--gray-700) !important;
     font-weight: 500;
-    margin: 0 10px;
+    margin: 0 5px;
     transition: var(--transition);
 }
 
