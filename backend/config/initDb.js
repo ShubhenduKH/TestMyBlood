@@ -219,22 +219,33 @@ const initDatabase = async () => {
             // Ignore if index already exists
         }
 
-        // Hash passwords
-        const adminPassword = await bcrypt.hash('admin123', 10);
-        const collectorPassword = await bcrypt.hash('collector123', 10);
+        // Hash passwords (from environment variables)
+        const adminPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD || 'changeme', 10);
+        const collectorPassword = await bcrypt.hash(process.env.COLLECTOR_PASSWORD || 'changeme', 10);
 
         // Insert default admin
         await connection.query(`
             INSERT IGNORE INTO users (name, email, password, phone, user_type, is_verified)
-            VALUES ('Admin', 'admin@testmyblood.com', ?, '+91 98765 43210', 'admin', TRUE)
-        `, [adminPassword]);
+            VALUES (?, ?, ?, ?, 'admin', TRUE)
+        `, [
+            process.env.ADMIN_NAME || 'Admin',
+            process.env.ADMIN_EMAIL || 'admin@testmyblood.com',
+            adminPassword,
+            process.env.ADMIN_PHONE || '+91 98765 43210'
+        ]);
         console.log('Admin user created');
 
         // Insert default collector
         await connection.query(`
             INSERT IGNORE INTO users (name, email, password, phone, user_type, area, is_verified)
-            VALUES ('John Collector', 'collector@testmyblood.com', ?, '+91 98765 43211', 'collector', 'Central Zone', TRUE)
-        `, [collectorPassword]);
+            VALUES (?, ?, ?, ?, 'collector', ?, TRUE)
+        `, [
+            process.env.COLLECTOR_NAME || 'John Collector',
+            process.env.COLLECTOR_EMAIL || 'collector@testmyblood.com',
+            collectorPassword,
+            process.env.COLLECTOR_PHONE || '+91 98765 43211',
+            process.env.COLLECTOR_AREA || 'Central Zone'
+        ]);
         console.log('Collector user created');
 
         // Insert sample labs
